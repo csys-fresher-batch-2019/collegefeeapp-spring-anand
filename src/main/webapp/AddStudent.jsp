@@ -48,8 +48,7 @@
 					}
 				%>
 
-			</select> <br> <br> Enter mail id:<input type="email" id="email"
-				name="email"> <br> <br>
+			</select> <br> <br> Enter mail id:<input type="email" id="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" title="Example:xyz@gmail.com" name="email"> <br> <br>
 			<button type="submit" class="btn btn-success">Submit</button>
 		</form>
 	</center>

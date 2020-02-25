@@ -1,10 +1,10 @@
 language: java
 deploy:
   provider: cloudfoundry
-  username: vijaysnarayanan1998@gmail.com
-  password: Pivotal@123
+  username: anandkumar2910@gmail.com
+  password: anand@558
   api: https://api.run.pivotal.io
-  organization: AppCollegeFee
+  organization: CollegeFeeRegisterApp
   space: development
   manifest: manifest.yml
 script:

@@ -12,7 +12,7 @@ public class TestConnect {
 		try {
 			TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata"));
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE", "anand", "anand");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
 		} catch (ClassNotFoundException e) {
 			Logger.getInstance().error("Class Not Found");
 		}

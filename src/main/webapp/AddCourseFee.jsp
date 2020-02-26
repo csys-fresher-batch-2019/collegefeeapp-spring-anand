@@ -62,8 +62,9 @@
 			</select><br> <br> Enter amount: <input type="number"
 				name="txtamount" min=1 required><br> <br>
 			<button type="submit" class="btn btn-success">SUBMIT</button>
+		</form>
 	</center>
-	</form>
+
 	<%
 		} else {
 			response.sendRedirect("Login.jsp");

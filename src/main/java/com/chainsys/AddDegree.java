@@ -21,7 +21,7 @@ public class AddDegree extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		String name = request.getParameter("degree_name");
 		DegreeDAOImplementation obj = DegreeDAOImplementation.getInstance();
 		try {

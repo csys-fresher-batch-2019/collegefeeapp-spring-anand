@@ -20,11 +20,11 @@
 		<h1>ADD CATEGORY</h1>
 		<br> <br>
 		<form action="AddCategory">
-			Enter name: <input type="text" name="category_name" required> <br>
-			<br>
+			Enter name: <input type="text" name="category_name" required>
+			<br> <br>
 			<button type="submit" class="btn btn-success">SUBMIT</button>
+		</form>
 	</center>
-	</form>
 	<%
 		} else {
 			response.sendRedirect("Login.jsp");

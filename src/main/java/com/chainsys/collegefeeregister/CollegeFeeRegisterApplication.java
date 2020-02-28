@@ -1,4 +1,4 @@
-package com.chainsys.collegefeeregister.servlet;
+package com.chainsys.collegefeeregister;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-<%@page import="com.chainsys.payment.PaymentDetail"%>
+<%@page import="com.chainsys.collegefeeregister.payment.PaymentDetail"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -55,8 +55,6 @@
 					<td><%=p.getSemId()%></td>
 					<td><%=p.getAmount()%></td>
 				</tr>
-
-
 			</tbody>
 			<%
 				}

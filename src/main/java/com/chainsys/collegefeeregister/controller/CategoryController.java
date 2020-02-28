@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.category.Category;
-import com.chainsys.collegefeeregister.category.CategoryDAOImplementation;
-import com.chainsys.collegefeeregister.category.CategoryInterface;
+import com.chainsys.collegefeeregister.dao.CategoryInterface;
+import com.chainsys.collegefeeregister.dao.impl.CategoryDAOImplementation;
+import com.chainsys.collegefeeregister.model.Category;
 
 @RestController
 @RequestMapping("api")

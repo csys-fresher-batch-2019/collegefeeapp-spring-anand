@@ -1,6 +1,6 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.collegefeeregister.student.Stud_Class"%>
-<%@page import="com.chainsys.collegefeeregister.student.StudentDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.model.Stud_Class"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>

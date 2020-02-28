@@ -17,7 +17,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.chainsys.collegefeeregister.payment.PaymentDetail;
+import com.chainsys.collegefeeregister.model.PaymentDetail;
 
 public class MailUtil {
 	public static void send(final String from, final String password, String to, String sub, PaymentDetail p)

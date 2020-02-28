@@ -1,5 +1,5 @@
-<%@page import="com.chainsys.collegefeeregister.department.DeptDAOImplementation"%>
-<%@page import="com.chainsys.collegefeeregister.degree.DegreeDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.DegreeDAOImplementation"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>

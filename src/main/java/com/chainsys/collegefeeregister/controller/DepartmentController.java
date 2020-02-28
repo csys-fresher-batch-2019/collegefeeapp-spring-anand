@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.department.DeptDAOImplementation;
-import com.chainsys.collegefeeregister.department.DeptInterface;
+import com.chainsys.collegefeeregister.dao.DeptInterface;
+import com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation;
 
 @RestController
 @RequestMapping("api")

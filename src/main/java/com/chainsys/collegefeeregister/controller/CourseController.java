@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.course.Course;
-import com.chainsys.collegefeeregister.course.CourseDAOImplementation;
-import com.chainsys.collegefeeregister.course.CourseInterface;
+import com.chainsys.collegefeeregister.dao.CourseInterface;
+import com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation;
+import com.chainsys.collegefeeregister.model.Course;
 
 @RestController
 @RequestMapping("api")

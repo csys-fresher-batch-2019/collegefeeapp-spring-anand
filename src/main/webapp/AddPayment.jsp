@@ -1,10 +1,10 @@
-<%@page import="com.chainsys.collegefeeregister.category.Category"%>
-<%@page import="com.chainsys.collegefeeregister.category.CategoryDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.model.Category"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.CategoryDAOImplementation"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.collegefeeregister.semester.Semester"%>
-<%@page import="com.chainsys.collegefeeregister.semester.SemesterDAOImplementation"%>
-<%@page import="com.chainsys.collegefeeregister.student.Stud_Class"%>
-<%@page import="com.chainsys.collegefeeregister.student.StudentDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.model.Semester"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.SemesterDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.model.Stud_Class"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 

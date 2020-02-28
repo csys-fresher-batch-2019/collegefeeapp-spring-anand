@@ -1,4 +1,4 @@
-<%@page import="com.chainsys.collegefeeregister.payment.PaymentDetail"%>
+<%@page import="com.chainsys.collegefeeregister.model.PaymentDetail"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>

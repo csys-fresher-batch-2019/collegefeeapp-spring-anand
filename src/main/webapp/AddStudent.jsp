@@ -1,8 +1,8 @@
-<%@page import="com.chainsys.collegefeeregister.course.CourseDAOImplementation"%>
-<%@page import="com.chainsys.collegefeeregister.course.Course"%>
-<%@page import="com.chainsys.collegefeeregister.department.DeptDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.model.Course"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.collegefeeregister.degree.DegreeDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.dao.impl.DegreeDAOImplementation"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <html>

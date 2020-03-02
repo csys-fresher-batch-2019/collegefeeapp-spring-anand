@@ -3,6 +3,9 @@ package com.chainsys.collegefeeregister.util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class JdbcUtil {
 
 	public static int executeUpdate(String sql, Object... params) throws Exception {

@@ -1,9 +1,14 @@
 package com.chainsys.collegefeeregister.sxcException;
 
-public class DbException extends Exception{
+public class DbException extends Exception {
 
-		public DbException(String message) {
-			super(message);
-		}
+	/**
+	* 
+	*/
+	private static final long serialVersionUID = 1L;
 
+	public DbException(String message) {
+		super(message);
 	}
+
+}

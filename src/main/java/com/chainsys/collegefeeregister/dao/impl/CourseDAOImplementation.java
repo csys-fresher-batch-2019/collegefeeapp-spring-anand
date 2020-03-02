@@ -5,12 +5,15 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.collegefeeregister.dao.CourseInterface;
 import com.chainsys.collegefeeregister.model.Course;
 import com.chainsys.collegefeeregister.sxcException.NotFoundException;
 import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.TestConnect;
 
+@Repository
 public class CourseDAOImplementation implements CourseInterface {
 
 	public static CourseDAOImplementation getInstance() {

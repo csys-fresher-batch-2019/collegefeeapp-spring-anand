@@ -17,8 +17,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.springframework.stereotype.Component;
+
 import com.chainsys.collegefeeregister.model.PaymentDetail;
 
+@Component
 public class MailUtil {
 	public static void send(final String from, final String password, String to, String sub, PaymentDetail p)
 			throws IOException {

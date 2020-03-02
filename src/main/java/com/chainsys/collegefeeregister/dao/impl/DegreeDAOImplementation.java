@@ -3,11 +3,14 @@ package com.chainsys.collegefeeregister.dao.impl;
 import java.sql.*;
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.collegefeeregister.dao.DegreeInterface;
 import com.chainsys.collegefeeregister.model.Degree;
 import com.chainsys.collegefeeregister.sxcException.NotFoundException;
 import com.chainsys.collegefeeregister.util.*;
 
+@Repository
 public class DegreeDAOImplementation implements DegreeInterface {
 
 	public static DegreeDAOImplementation getInstance() {
@@ -19,8 +22,7 @@ public class DegreeDAOImplementation implements DegreeInterface {
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 			Logger logger = Logger.getInstance();
 
-			String sql = "insert into degree(deg_id,deg_name) values(degree_seq.nextval,'" + name.toUpperCase()
-					+ "')";
+			String sql = "insert into degree(deg_id,deg_name) values(degree_seq.nextval,'" + name.toUpperCase() + "')";
 
 			logger.info(sql);
 			stmt.executeUpdate(sql);

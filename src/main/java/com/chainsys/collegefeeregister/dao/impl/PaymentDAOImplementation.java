@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.chainsys.collegefeeregister.dao.PaymentInterface;
 import com.chainsys.collegefeeregister.model.PaymentDetail;
 import com.chainsys.collegefeeregister.sxcException.DbException;
@@ -15,6 +17,7 @@ import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.MailUtil;
 import com.chainsys.collegefeeregister.util.TestConnect;
 
+@Repository
 public class PaymentDAOImplementation implements PaymentInterface {
 
 	public static PaymentDAOImplementation getInstance() {

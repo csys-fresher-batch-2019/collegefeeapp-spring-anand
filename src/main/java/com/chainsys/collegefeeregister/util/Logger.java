@@ -1,5 +1,8 @@
 package com.chainsys.collegefeeregister.util;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Logger {
 
 	public static Logger getInstance() {

@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@ServletComponentScan("com.chainsys")
+@ServletComponentScan("com.chainsys.collegefeeregister")
 public class CollegeFeeRegisterApplication extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

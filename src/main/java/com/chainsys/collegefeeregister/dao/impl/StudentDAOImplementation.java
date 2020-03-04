@@ -13,7 +13,6 @@ import com.chainsys.collegefeeregister.model.Student;
 import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.TestConnect;
 
-
 @Repository
 public class StudentDAOImplementation implements StudentDAO {
 
@@ -24,11 +23,11 @@ public class StudentDAOImplementation implements StudentDAO {
 	}
 
 	public void addStudent(Student s) throws Exception {
+		String sql = "insert into student(std_id,std_name,course_id,mail) values('" + s.getRegno().toUpperCase() + "','"
+				+ s.getName().toUpperCase() + "'," + s.getCourseId() + ",'" + s.getMail() + "')";
 
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 
-			String sql = "insert into student(std_id,std_name,course_id,mail) values('" + s.getRegno().toUpperCase()
-					+ "','" + s.getName().toUpperCase() + "'," + s.getCourseId() + ",'" + s.getMail() + "')";
 			logger.info(sql);
 
 			stmt.executeUpdate(sql);
@@ -39,10 +38,10 @@ public class StudentDAOImplementation implements StudentDAO {
 	}
 
 	public void updateStudentName(Student s) throws Exception {
+		String sql = "update student set std_name='" + s.getName() + "' where std_id='" + s.getRegno() + "'";
 
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 
-			String sql = "update student set std_name='" + s.getName() + "' where std_id='" + s.getRegno() + "'";
 			int row = stmt.executeUpdate(sql);
 			if (row > 0) {
 				logger.info("Student Name Updated");
@@ -53,9 +52,9 @@ public class StudentDAOImplementation implements StudentDAO {
 	}
 
 	public void deleteStudent(Student s) throws Exception {
+		String sql = "update student set stud_active=0 where std_id='" + s.getRegno() + "'";
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 
-			String sql = "update student set stud_active=0 where std_id='" + s.getRegno() + "'";
 			int row = stmt.executeUpdate(sql);
 			if (row > 0) {
 				logger.info("Student Deleted");
@@ -66,8 +65,8 @@ public class StudentDAOImplementation implements StudentDAO {
 	}
 
 	public ArrayList<Student> getAllActiveStudents() throws Exception {
+		String sql = "select * from student where stud_active=1";
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			String sql = "select * from student where stud_active=1";
 			try (ResultSet rs = stmt.executeQuery(sql);) {
 				ArrayList<Student> list = new ArrayList<>();
 
@@ -86,8 +85,8 @@ public class StudentDAOImplementation implements StudentDAO {
 	}
 
 	public ArrayList<Student> getActiveStudentsByCourse(int courseId) throws Exception {
+		String sql = "select * from student where course_id=" + courseId + " and stud_active=1";
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			String sql = "select * from student where course_id=" + courseId + " and stud_active=1";
 			try (ResultSet rs = stmt.executeQuery(sql);) {
 				ArrayList<Student> list = new ArrayList<>();
 
@@ -107,10 +106,9 @@ public class StudentDAOImplementation implements StudentDAO {
 
 	public int getCourseIdByRegno(Student s) throws Exception {
 
+		String sql = "select course_id from student where std_id='" + s.getRegno() + "'";
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 			int courseId = 0;
-
-			String sql = "select course_id from student where std_id='" + s.getRegno() + "'";
 
 			try (ResultSet rs = stmt.executeQuery(sql);) {
 				if (rs.next()) {

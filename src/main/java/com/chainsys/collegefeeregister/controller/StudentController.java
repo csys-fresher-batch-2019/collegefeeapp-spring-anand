@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.service.FeeCourseService;
+import com.chainsys.collegefeeregister.service.StudentService;
 
 @RestController
 @RequestMapping("api")
-public class FeeCourseController {
+
+public class StudentController {
 
 	@Autowired
-	FeeCourseService obj;
-
+	StudentService obj;
 }

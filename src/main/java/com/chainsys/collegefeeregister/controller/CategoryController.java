@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.dao.CategoryDAO;
 import com.chainsys.collegefeeregister.model.Category;
+import com.chainsys.collegefeeregister.service.CategoryService;
 
 @RestController
 @RequestMapping("api")
 public class CategoryController {
 
 	@Autowired
-	CategoryDAO obj;
+	CategoryService obj;
 
 	@GetMapping("/GetAllCategory")
 	public ArrayList<Category> getAllCategory() {

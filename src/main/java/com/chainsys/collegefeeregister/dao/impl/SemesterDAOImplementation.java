@@ -2,8 +2,8 @@ package com.chainsys.collegefeeregister.dao.impl;
 
 import java.net.ConnectException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
@@ -23,12 +23,12 @@ public class SemesterDAOImplementation implements SemesterDAO {
 
 	public void addSemester(Semester s) throws Exception {
 
-		Logger logger = Logger.getInstance();
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			String sql = "insert into semester(sem_id,sem_type,acc_yr_begin) values(semester_seq.nextval,'"
-					+ s.getsemType() + "'," + s.getaccYear() + ")";
+		String sql = "insert into semester(sem_id,sem_type,acc_yr_begin) values(semester_seq.nextval,?,?)";
 
-			stmt.executeUpdate(sql);
+		Logger logger = Logger.getInstance();
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+
+			stmt.executeUpdate();
 
 			logger.info("Semester Generated");
 
@@ -38,15 +38,16 @@ public class SemesterDAOImplementation implements SemesterDAO {
 	public int getSemId(Semester s) throws Exception {
 
 		Logger logger = Logger.getInstance();
-		String sql = "select sem_id from semester where acc_yr_begin=" + s.getaccYear() + " and sem_type='"
-				+ s.getsemType() + "' ";
+		String sql = "select sem_id from semester where acc_yr_begin=? and sem_type=?";
 
 		logger.info(sql);
 		int semId = 0;
 
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+			stmt.setInt(1, s.getaccYear());
+			stmt.setString(2, s.getsemType());
+			try (ResultSet rs = stmt.executeQuery();) {
 				if (rs.next()) {
 					semId = rs.getInt("sem_id");
 				}
@@ -59,9 +60,10 @@ public class SemesterDAOImplementation implements SemesterDAO {
 
 	public ArrayList<Semester> getAllSemester() throws Exception {
 		ArrayList<Semester> list = new ArrayList<>();
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			String sql = "select * from semester order by sem_id";
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+		String sql = "select * from semester order by sem_id";
+
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+			try (ResultSet rs = stmt.executeQuery();) {
 				while (rs.next()) {
 					Semester s = Semester.getInstance();
 					s.setId(rs.getInt("sem_id"));
@@ -80,11 +82,12 @@ public class SemesterDAOImplementation implements SemesterDAO {
 
 	public String getSemester(Semester s) throws Exception {
 		String sem = null;
-		String sql = "select * from semester where sem_id=" + s.getId() + "";
+		String sql = "select * from semester where sem_id=?";
 		Logger logger = Logger.getInstance();
 		logger.info(sql);
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+			stmt.setInt(1, s.getId());
+			try (ResultSet rs = stmt.executeQuery();) {
 				if (rs.next()) {
 					Semester s1 = Semester.getInstance();
 					s1.setaccYear(rs.getInt("acc_yr_begin"));

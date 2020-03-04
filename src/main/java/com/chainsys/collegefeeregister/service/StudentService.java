@@ -3,10 +3,12 @@ package com.chainsys.collegefeeregister.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.StudentDAO;
 import com.chainsys.collegefeeregister.model.Student;
 
+@Service
 public class StudentService {
 
 	@Autowired

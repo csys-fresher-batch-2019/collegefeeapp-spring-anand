@@ -3,12 +3,14 @@ package com.chainsys.collegefeeregister.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.PaymentDAO;
 import com.chainsys.collegefeeregister.exception.DbException;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Payment;
 
+@Service
 public class PaymentService {
 
 	@Autowired

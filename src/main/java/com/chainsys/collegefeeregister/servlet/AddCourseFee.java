@@ -28,8 +28,7 @@ public class AddCourseFee extends HttpServlet {
 		int amount = Integer.parseInt(request.getParameter("txtamount"));
 
 		FeeCourseDAOImplementation objfc = FeeCourseDAOImplementation.getInstance();
-		FeeCourse f = FeeCourse.getInstance();
-
+		
 		try {
 			objfc.addCourseFee(courseId, categoryId, amount);
 			request.setAttribute("infoMessage", "CourseFee Added");

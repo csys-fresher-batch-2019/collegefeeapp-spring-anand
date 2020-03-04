@@ -2,8 +2,8 @@ package com.chainsys.collegefeeregister.dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,21 +26,28 @@ public class PaymentDAOImplementation implements PaymentDAO {
 
 	public void addPayment(Payment p) throws DbException {
 
-		Logger logger = Logger.getInstance();
+		String sql = "insert into payment(payment_id,payment_date,std_id,course_fee_id,sem_id,paid_amount) values(payment_seq.nextval,SYSDATE,?,?,?,?)";
+		String sql2 = "select mail from student where std_id =  ?";
 
-		String sql = "insert into payment(payment_id,payment_date,std_id,course_fee_id,sem_id,paid_amount) values(payment_seq.nextval,SYSDATE,'"
-				+ p.getRegno() + "'," + p.getFeeCourseId() + "," + p.getSemId() + "," + p.getAmount() + ")";
+		Logger logger = Logger.getInstance();
 
 		logger.info(sql);
 
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+		try (Connection con = TestConnect.getConnection();
+				PreparedStatement stmt = con.prepareStatement(sql);
+				PreparedStatement stmt2 = con.prepareStatement(sql2);) {
 
-			stmt.executeUpdate(sql);
+			stmt.setString(1, p.getRegno());
+			stmt.setInt(2, p.getFeeCourseId());
+			stmt.setInt(3, p.getSemId());
+			stmt.setInt(4, p.getAmount());
 
-			String sql2 = "select mail from student where std_id =  '" + p.getRegno() + "'";
+			stmt.executeUpdate();
+
 			String std_mail;
 
-			try (ResultSet rs = stmt.executeQuery(sql2);) {
+			stmt.setString(1, p.getRegno());
+			try (ResultSet rs = stmt2.executeQuery();) {
 				if (rs.next()) {
 					std_mail = rs.getString("mail");
 					MailUtil.send("ak1996ak1996ak1996@gmail.com", "qwerty@123456", std_mail, "Fees Paid", p);
@@ -59,13 +66,13 @@ public class PaymentDAOImplementation implements PaymentDAO {
 	public List<Payment> listbysem(int semId) throws DbException, NotFoundException {
 		Logger logger = Logger.getInstance();
 
-		String sql = "select payment_id,payment_date,std_id,course_fee_id,paid_amount from payment where sem_id="
-				+ semId + "";
+		String sql = "select payment_id,payment_date,std_id,course_fee_id,paid_amount from payment where sem_id=?";
 		logger.info(sql);
 
-		try (Connection connection = TestConnect.getConnection(); Statement st = connection.createStatement();) {
-
-			try (ResultSet rs = st.executeQuery(sql);) {
+		try (Connection connection = TestConnect.getConnection();
+				PreparedStatement st = connection.prepareStatement(sql);) {
+			st.setInt(1, semId);
+			try (ResultSet rs = st.executeQuery();) {
 
 				ArrayList<Payment> list = new ArrayList<>();
 
@@ -90,19 +97,19 @@ public class PaymentDAOImplementation implements PaymentDAO {
 				throw new NotFoundException("No matching data");
 			}
 		} catch (Exception e) {
-			throw new DbException("Connecction Error");
+			throw new DbException("Connection Error");
 		}
 	}
 
 	public List<Payment> listbyregno(String regno) throws DbException, NotFoundException {
 		Logger logger = Logger.getInstance();
-		String sql = "select payment_id,payment_date,course_fee_id,sem_id,paid_amount from payment where std_id='"
-				+ regno + "'";
+		String sql = "select payment_id,payment_date,course_fee_id,sem_id,paid_amount from payment where std_id=?";
 		logger.info(sql);
 
-		try (Connection con = TestConnect.getConnection(); Statement st = con.createStatement();) {
+		try (Connection con = TestConnect.getConnection(); PreparedStatement st = con.prepareStatement(sql);) {
 
-			try (ResultSet rs = st.executeQuery(sql);) {
+			st.setString(1, regno);
+			try (ResultSet rs = st.executeQuery();) {
 
 				ArrayList<Payment> list = new ArrayList<>();
 
@@ -134,9 +141,9 @@ public class PaymentDAOImplementation implements PaymentDAO {
 		String sql = "select payment_id,payment_date,course_fee_id,sem_id,paid_amount,std_id from payment";
 		logger.info(sql);
 
-		try (Connection con = TestConnect.getConnection(); Statement st = con.createStatement();) {
+		try (Connection con = TestConnect.getConnection(); PreparedStatement st = con.prepareStatement(sql);) {
 
-			try (ResultSet rs = st.executeQuery(sql);) {
+			try (ResultSet rs = st.executeQuery();) {
 
 				ArrayList<Payment> list = new ArrayList<>();
 

@@ -15,10 +15,6 @@ import com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation;
 import com.chainsys.collegefeeregister.model.Category;
 import com.chainsys.collegefeeregister.model.Course;
 
-/**
- * Servlet implementation class AddCourseFeeLoad
- */
-
 @WebServlet("/AddCourseFeeLoad")
 public class AddCourseFeeLoad extends HttpServlet {
 	private static final long serialVersionUID = 1L;

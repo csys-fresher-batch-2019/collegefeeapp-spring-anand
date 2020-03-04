@@ -18,14 +18,15 @@ public class DegreeDAOImplementation implements DegreeDAO {
 	}
 
 	public void addDegree(String name) throws Exception {
+		String sql = "insert into degree(deg_id,deg_name) values(degree_seq.nextval,?)";
 
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
 			Logger logger = Logger.getInstance();
 
-			String sql = "insert into degree(deg_id,deg_name) values(degree_seq.nextval,'" + name.toUpperCase() + "')";
-
 			logger.info(sql);
-			stmt.executeUpdate(sql);
+
+			stmt.setString(1, name);
+			stmt.executeUpdate();
 
 			logger.info("Degree Inserted");
 
@@ -35,12 +36,14 @@ public class DegreeDAOImplementation implements DegreeDAO {
 	public String getDegreeName(int degId) throws Exception {
 
 		String degName = null;
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+
+		String sql2 = "select deg_name from degree where deg_id=?";
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql2);) {
 			Logger logger = Logger.getInstance();
 
-			String sql2 = "select deg_name from degree where deg_id=" + degId + "";
 			logger.info(sql2);
-			try (ResultSet rs2 = stmt.executeQuery(sql2);) {
+			stmt.setInt(1, degId);
+			try (ResultSet rs2 = stmt.executeQuery();) {
 				if (rs2.next()) {
 					degName = rs2.getString("deg_name");
 				}
@@ -52,13 +55,14 @@ public class DegreeDAOImplementation implements DegreeDAO {
 	}
 
 	public int getDegreeId(String degName) throws Exception {
-		String sql1 = "select deg_id from degree where deg_name='" + degName + "'";
+		String sql1 = "select deg_id from degree where deg_name=?";
 		Logger logger = Logger.getInstance();
 
 		logger.info(sql1);
 		int degId = 0;
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			try (ResultSet rs = stmt.executeQuery(sql1);) {
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql1)) {
+			stmt.setString(1, degName);
+			try (ResultSet rs = stmt.executeQuery();) {
 				if (rs.next()) {
 					degId = rs.getInt("deg_id");
 				}
@@ -72,12 +76,12 @@ public class DegreeDAOImplementation implements DegreeDAO {
 	}
 
 	public ArrayList<String> getAllDegree() throws Exception {
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+		String sql = "select * from degree order by deg_name";
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
 			ArrayList<String> list = new ArrayList<>();
-			String sql = "select * from degree order by deg_name";
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+			try (ResultSet rs = stmt.executeQuery();) {
 				while (rs.next()) {
-					Degree d = Degree.getInstance();
+					Degree d = new Degree();
 					d.setName(rs.getString("deg_name"));
 					list.add(d.getName());
 				}

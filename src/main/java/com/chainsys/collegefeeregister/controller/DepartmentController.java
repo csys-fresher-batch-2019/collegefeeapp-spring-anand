@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.dao.DepartmentDAO;
+import com.chainsys.collegefeeregister.service.DepartmentService;
 
 @RestController
 @RequestMapping("api")
 public class DepartmentController {
 
 	@Autowired
-	DepartmentDAO obj;
+	DepartmentService obj;
 
 	@PostMapping("/addDepartment")
 	public void addDepartment(@RequestParam("deptname") String pname) {

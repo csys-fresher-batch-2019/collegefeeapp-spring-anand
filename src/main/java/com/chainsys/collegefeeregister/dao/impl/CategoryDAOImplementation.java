@@ -1,8 +1,8 @@
 package com.chainsys.collegefeeregister.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
@@ -23,11 +23,12 @@ public class CategoryDAOImplementation implements CategoryDAO {
 	}
 
 	public void addFeeCategory(Category c) throws Exception {
+		String sql = "insert into fee_category(fee_category_id,fee_category_name) values(fee_category_seq.nextval,?)";
 
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			String sql = "insert into fee_category(fee_category_id,fee_category_name) values(fee_category_seq.nextval,'"
-					+ c.getName() + "')";
-			stmt.executeUpdate(sql);
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+
+			stmt.setString(1, c.getName());
+			stmt.executeUpdate();
 
 			logger.info(sql);
 			logger.info("Category added");
@@ -36,11 +37,13 @@ public class CategoryDAOImplementation implements CategoryDAO {
 
 	public int getFeeCategoryId(Category c) throws Exception {
 		int id = 0;
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			String sql = "select fee_category_id from fee_category where fee_category_name='" + c.getName() + "'";
+		String sql = "select fee_category_id from fee_category where fee_category_name=?";
+
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			logger.info(sql);
 
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+			stmt.setString(1, c.getName());
+			try (ResultSet rs = stmt.executeQuery();) {
 				if (rs.next()) {
 					id = rs.getInt("fee_category_id");
 				}
@@ -53,12 +56,13 @@ public class CategoryDAOImplementation implements CategoryDAO {
 
 	public String getFeeCategoryName(Category c) throws Exception {
 		String name = null;
+		String sql = "select fee_category_name from fee_category where fee_category_id=?";
 
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			String sql = "select fee_category_name from fee_category where fee_category_id=" + c.getId() + "";
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			logger.info(sql);
 
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+			stmt.setInt(1, c.getId());
+			try (ResultSet rs = stmt.executeQuery();) {
 				name = rs.getString("fee_category_name");
 			} catch (Exception e) {
 				throw new NotFoundException("Category doesnot exist");
@@ -71,13 +75,13 @@ public class CategoryDAOImplementation implements CategoryDAO {
 
 		ArrayList<Category> list = new ArrayList<>();
 
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+		String sql = "select * from fee_category order by fee_category_id";
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
-			String sql = "select * from fee_category order by fee_category_id";
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+			try (ResultSet rs = stmt.executeQuery();) {
 
 				while (rs.next()) {
-					Category c = Category.getInstance();
+					Category c = new Category();
 					c.setId(rs.getInt("fee_category_id"));
 					c.setName(rs.getString("fee_category_name"));
 					list.add(c);

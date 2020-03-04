@@ -1,9 +1,11 @@
 package com.chainsys.collegefeeregister.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.FeeCourseDAO;
 
+@Service
 public class FeeCourseService {
 
 	@Autowired

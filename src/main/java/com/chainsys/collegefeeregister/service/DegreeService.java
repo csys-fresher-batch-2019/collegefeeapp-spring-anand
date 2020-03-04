@@ -3,9 +3,11 @@ package com.chainsys.collegefeeregister.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.DegreeDAO;
 
+@Service
 public class DegreeService {
 
 	@Autowired
@@ -23,7 +25,7 @@ public class DegreeService {
 		return obj.getDegreeId(degreeName);
 	}
 
-	public ArrayList<String> list() throws Exception {
+	public ArrayList<String> getAllDegree() throws Exception {
 		return obj.getAllDegree();
 	}
 

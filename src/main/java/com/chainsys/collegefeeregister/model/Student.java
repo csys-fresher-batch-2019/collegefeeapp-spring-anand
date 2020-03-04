@@ -1,9 +1,9 @@
 package com.chainsys.collegefeeregister.model;
 
-public class Stud_Class {
+public class Student {
 
-	public static Stud_Class getInstance() {
-		return new Stud_Class();
+	public static Student getInstance() {
+		return new Student();
 	}
 
 	public String getName() {

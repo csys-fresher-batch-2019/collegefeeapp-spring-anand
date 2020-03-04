@@ -2,7 +2,7 @@ package com.chainsys.collegefeeregister.dao;
 
 import java.util.ArrayList;
 
-public interface DegreeInterface {
+public interface DegreeDAO {
 
 	void addDegree(String name) throws Exception;
 

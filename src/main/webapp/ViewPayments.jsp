@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="com.chainsys.collegefeeregister.model.PaymentDetail"%>
+<%@page import="com.chainsys.collegefeeregister.model.Payment"%>
 <%@page
 	import="com.chainsys.collegefeeregister.dao.impl.PaymentDAOImplementation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -27,7 +27,7 @@
 		<br> <br>
 		<%
 			PaymentDAOImplementation obj = PaymentDAOImplementation.getInstance();
-				List<PaymentDetail> list = obj.listAll();
+				List<Payment> list = obj.listAll();
 				if (list != null) {
 		%>
 		<table border="1">

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation;
-import com.chainsys.collegefeeregister.dao.impl.DegreeDAOImplementation;
-import com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation;
+import com.chainsys.collegefeeregister.service.DegreeService;
+import com.chainsys.collegefeeregister.service.DepartmentService;
 
 @WebServlet("/AddCourse")
 public class AddCourse extends HttpServlet {
@@ -27,8 +27,8 @@ public class AddCourse extends HttpServlet {
 		String degName = request.getParameter("degree_name");
 		String deptName = request.getParameter("department_name");
 
-		DeptDAOImplementation objDept = DeptDAOImplementation.getInstance();
-		DegreeDAOImplementation objDeg = DegreeDAOImplementation.getInstance();
+		DepartmentService objDept = new DepartmentService();
+		DegreeService objDeg = new DegreeService();
 
 		int deptId;
 		int degId;

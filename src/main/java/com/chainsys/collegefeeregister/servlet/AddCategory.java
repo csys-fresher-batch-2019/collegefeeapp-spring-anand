@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.collegefeeregister.dao.impl.CategoryDAOImplementation;
 import com.chainsys.collegefeeregister.model.Category;
+import com.chainsys.collegefeeregister.service.CategoryService;
 
 /**
  * Servlet implementation class AddCategory
@@ -27,23 +28,24 @@ public class AddCategory extends HttpServlet {
 			throws ServletException, IOException {
 
 		String category_name = request.getParameter("category_name");
-		CategoryDAOImplementation obj = CategoryDAOImplementation.getInstance();
+
+		CategoryService cs = new CategoryService();
 		Category c = Category.getInstance();
 		c.setName(category_name);
+		RequestDispatcher rd = null;
 		try {
-			obj.addFeeCategory(c);
+			cs.addFeeCategory(c);
 			request.setAttribute("infoMessage", "Category Added");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Category not Added");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 		}
 
-		
 	}
 
 }

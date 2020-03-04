@@ -9,18 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.dao.DegreeInterface;
+import com.chainsys.collegefeeregister.dao.DegreeDAO;
 
 @RestController
 @RequestMapping("api")
 public class DegreeController {
 
 	@Autowired
-	DegreeInterface obj;
+	DegreeDAO obj;
 
 	@PostMapping("/addDegree")
 	public void addDegree(@RequestParam("deg_name") String pname) {
-
 		try {
 			obj.addDegree(pname);
 		} catch (Exception e) {

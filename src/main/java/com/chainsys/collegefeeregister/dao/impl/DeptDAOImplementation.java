@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.collegefeeregister.dao.DeptInterface;
+import com.chainsys.collegefeeregister.dao.DepartmentDAO;
+import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Department;
-import com.chainsys.collegefeeregister.sxcException.NotFoundException;
 import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.TestConnect;
 
 @Repository
-public class DeptDAOImplementation implements DeptInterface {
+public class DeptDAOImplementation implements DepartmentDAO {
 
 	public static DeptDAOImplementation getInstance() {
 		return new DeptDAOImplementation();

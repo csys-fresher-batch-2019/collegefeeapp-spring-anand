@@ -7,15 +7,15 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.collegefeeregister.dao.Student;
-import com.chainsys.collegefeeregister.model.Stud_Class;
-import com.chainsys.collegefeeregister.sxcException.NotFoundException;
+import com.chainsys.collegefeeregister.dao.StudentDAO;
+import com.chainsys.collegefeeregister.exception.NotFoundException;
+import com.chainsys.collegefeeregister.model.Student;
 import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.TestConnect;
 
 
 @Repository
-public class StudentDAOImplementation implements Student {
+public class StudentDAOImplementation implements StudentDAO {
 
 	Logger logger = Logger.getInstance();
 
@@ -23,7 +23,7 @@ public class StudentDAOImplementation implements Student {
 		return new StudentDAOImplementation();
 	}
 
-	public void addStudent(Stud_Class s) throws Exception {
+	public void addStudent(Student s) throws Exception {
 
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 
@@ -38,7 +38,7 @@ public class StudentDAOImplementation implements Student {
 		}
 	}
 
-	public void updateStudentName(Stud_Class s) throws Exception {
+	public void updateStudentName(Student s) throws Exception {
 
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 
@@ -52,7 +52,7 @@ public class StudentDAOImplementation implements Student {
 		}
 	}
 
-	public void deleteStudent(Stud_Class s) throws Exception {
+	public void deleteStudent(Student s) throws Exception {
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 
 			String sql = "update student set stud_active=0 where std_id='" + s.getRegno() + "'";
@@ -65,14 +65,14 @@ public class StudentDAOImplementation implements Student {
 		}
 	}
 
-	public ArrayList<Stud_Class> getAllActiveStudents() throws Exception {
+	public ArrayList<Student> getAllActiveStudents() throws Exception {
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 			String sql = "select * from student where stud_active=1";
 			try (ResultSet rs = stmt.executeQuery(sql);) {
-				ArrayList<Stud_Class> list = new ArrayList<>();
+				ArrayList<Student> list = new ArrayList<>();
 
 				while (rs.next()) {
-					Stud_Class s = Stud_Class.getInstance();
+					Student s = Student.getInstance();
 					s.setRegno(rs.getString("std_id"));
 					s.setName(rs.getString("std_name"));
 					s.setCourse_id(rs.getInt("course_id"));
@@ -85,14 +85,14 @@ public class StudentDAOImplementation implements Student {
 		}
 	}
 
-	public ArrayList<Stud_Class> getActiveStudentsByCourse(int courseId) throws Exception {
+	public ArrayList<Student> getActiveStudentsByCourse(int courseId) throws Exception {
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 			String sql = "select * from student where course_id=" + courseId + " and stud_active=1";
 			try (ResultSet rs = stmt.executeQuery(sql);) {
-				ArrayList<Stud_Class> list = new ArrayList<>();
+				ArrayList<Student> list = new ArrayList<>();
 
 				while (rs.next()) {
-					Stud_Class s = Stud_Class.getInstance();
+					Student s = Student.getInstance();
 					s.setRegno(rs.getString("std_id"));
 					s.setName(rs.getString("std_name"));
 					s.setCourse_id(rs.getInt("course_id"));
@@ -105,7 +105,7 @@ public class StudentDAOImplementation implements Student {
 		}
 	}
 
-	public int getCourseIdByRegno(Stud_Class s) throws Exception {
+	public int getCourseIdByRegno(Student s) throws Exception {
 
 		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
 			int courseId = 0;

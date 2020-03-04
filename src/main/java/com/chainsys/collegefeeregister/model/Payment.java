@@ -2,10 +2,10 @@ package com.chainsys.collegefeeregister.model;
 
 import java.sql.Date;
 
-public class PaymentDetail {
+public class Payment {
 
-	public static PaymentDetail getInstance() {
-		return new PaymentDetail();
+	public static Payment getInstance() {
+		return new Payment();
 	}
 
 	public int getId() {

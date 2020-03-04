@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.collegefeeregister.dao.CategoryInterface;
+import com.chainsys.collegefeeregister.dao.CategoryDAO;
+import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Category;
-import com.chainsys.collegefeeregister.sxcException.NotFoundException;
 import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.TestConnect;
 
 @Repository
-public class CategoryDAOImplementation implements CategoryInterface {
+public class CategoryDAOImplementation implements CategoryDAO {
 
 	Logger logger = Logger.getInstance();
 

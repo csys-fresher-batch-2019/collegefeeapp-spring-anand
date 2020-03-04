@@ -1,4 +1,4 @@
-package com.chainsys.collegefeeregister.sxcException;
+package com.chainsys.collegefeeregister.exception;
 
 public class DbException extends Exception {
 

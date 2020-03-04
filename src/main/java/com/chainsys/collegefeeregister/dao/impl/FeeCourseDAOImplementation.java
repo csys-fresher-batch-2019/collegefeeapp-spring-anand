@@ -6,14 +6,14 @@ import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.collegefeeregister.dao.FeeCourseInterface;
-import com.chainsys.collegefeeregister.sxcException.InvalidInputException;
-import com.chainsys.collegefeeregister.sxcException.NotFoundException;
+import com.chainsys.collegefeeregister.dao.FeeCourseDAO;
+import com.chainsys.collegefeeregister.exception.InvalidInputException;
+import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.TestConnect;
 
 @Repository
-public class FeeCourseDAOImplementation implements FeeCourseInterface {
+public class FeeCourseDAOImplementation implements FeeCourseDAO {
 
 	public static FeeCourseDAOImplementation getInstance() {
 		return new FeeCourseDAOImplementation();

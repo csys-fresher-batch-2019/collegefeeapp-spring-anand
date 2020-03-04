@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.collegefeeregister.model.Stud_Class"%>
+<%@page import="com.chainsys.collegefeeregister.model.Student"%>
 <%@page import="com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -29,8 +29,8 @@
 			<datalist id="regno_list">
 				<%
 					StudentDAOImplementation obj = StudentDAOImplementation.getInstance();
-						ArrayList<Stud_Class> stdlist = obj.getAllActiveStudents();
-						for (Stud_Class s1 : stdlist) {
+								ArrayList<Student> stdlist = obj.getAllActiveStudents();
+								for (Student s1 : stdlist) {
 				%><option value="<%=s1.getRegno()%>">
 					<%=s1.getName()%>
 				</option>

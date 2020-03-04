@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.collegefeeregister.dao.DegreeInterface;
+import com.chainsys.collegefeeregister.dao.DegreeDAO;
+import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Degree;
-import com.chainsys.collegefeeregister.sxcException.NotFoundException;
 import com.chainsys.collegefeeregister.util.*;
 
 @Repository
-public class DegreeDAOImplementation implements DegreeInterface {
+public class DegreeDAOImplementation implements DegreeDAO {
 
 	public static DegreeDAOImplementation getInstance() {
 		return new DegreeDAOImplementation();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.chainsys.collegefeeregister.model.Category;
 
-public interface CategoryInterface {
+public interface CategoryDAO {
 
 	void addFeeCategory(Category c) throws Exception;
 	int getFeeCategoryId(Category c) throws Exception;

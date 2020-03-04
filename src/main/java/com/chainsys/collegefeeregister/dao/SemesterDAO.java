@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.chainsys.collegefeeregister.model.Semester;
 
-public interface SemesterInterface {
+public interface SemesterDAO {
 
 	void addSemester(Semester s) throws Exception;
 

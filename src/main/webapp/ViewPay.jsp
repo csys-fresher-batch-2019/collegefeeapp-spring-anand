@@ -1,4 +1,4 @@
-<%@page import="com.chainsys.collegefeeregister.model.PaymentDetail"%>
+<%@page import="com.chainsys.collegefeeregister.model.Payment"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
@@ -24,7 +24,7 @@
 		<h1>VIEW PAYMENTS</h1>
 		<br> <br>
 		<%
-			List<PaymentDetail> list = (List) request.getAttribute("PayList");
+			List<Payment> list = (List) request.getAttribute("PayList");
 				if (list.isEmpty()) {
 					out.println("No records found");
 				} else {

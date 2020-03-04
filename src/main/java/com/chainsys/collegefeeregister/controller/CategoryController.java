@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.dao.CategoryInterface;
+import com.chainsys.collegefeeregister.dao.CategoryDAO;
 import com.chainsys.collegefeeregister.model.Category;
 
 @RestController
@@ -17,7 +17,7 @@ import com.chainsys.collegefeeregister.model.Category;
 public class CategoryController {
 
 	@Autowired
-	CategoryInterface obj;
+	CategoryDAO obj;
 
 	@GetMapping("/GetAllCategory")
 	public ArrayList<Category> getAllCategory() {

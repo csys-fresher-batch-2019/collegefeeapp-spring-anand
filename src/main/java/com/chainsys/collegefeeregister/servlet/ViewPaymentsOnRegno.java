@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.collegefeeregister.dao.impl.PaymentDAOImplementation;
-import com.chainsys.collegefeeregister.model.PaymentDetail;
-import com.chainsys.collegefeeregister.sxcException.DbException;
-import com.chainsys.collegefeeregister.sxcException.NotFoundException;
+import com.chainsys.collegefeeregister.exception.DbException;
+import com.chainsys.collegefeeregister.exception.NotFoundException;
+import com.chainsys.collegefeeregister.model.Payment;
 
 @WebServlet("/ViewPaymentsOnRegno")
 public class ViewPaymentsOnRegno extends HttpServlet {
@@ -28,7 +28,7 @@ public class ViewPaymentsOnRegno extends HttpServlet {
 		String regno = request.getParameter("regno_name");
 		PaymentDAOImplementation obj = PaymentDAOImplementation.getInstance();
 		try {
-			List<PaymentDetail> list = obj.listbyregno(regno);
+			List<Payment> list = obj.listbyregno(regno);
 			request.setAttribute("PayList", list);
 			RequestDispatcher rd = request.getRequestDispatcher("ViewPay.jsp");
 			rd.forward(request, response);

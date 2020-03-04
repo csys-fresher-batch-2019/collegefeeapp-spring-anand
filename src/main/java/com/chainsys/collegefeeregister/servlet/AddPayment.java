@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.chainsys.collegefeeregister.dao.impl.FeeCourseDAOImplementation;
 import com.chainsys.collegefeeregister.dao.impl.PaymentDAOImplementation;
 import com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation;
-import com.chainsys.collegefeeregister.model.PaymentDetail;
-import com.chainsys.collegefeeregister.model.Stud_Class;
+import com.chainsys.collegefeeregister.model.Payment;
+import com.chainsys.collegefeeregister.model.Student;
 
 @WebServlet("/AddPayment")
 public class AddPayment extends HttpServlet {
@@ -36,7 +36,7 @@ public class AddPayment extends HttpServlet {
 
 		StudentDAOImplementation objstd = StudentDAOImplementation.getInstance();
 		FeeCourseDAOImplementation objfc = FeeCourseDAOImplementation.getInstance();
-		Stud_Class s = Stud_Class.getInstance();
+		Student s = Student.getInstance();
 
 		try {
 			s.setRegno(regno);
@@ -44,7 +44,7 @@ public class AddPayment extends HttpServlet {
 			feeCourseId = objfc.getCourseFeeId(courseId, categoryId);
 			payableAmt = objfc.getCourseFeeAmount(feeCourseId);
 
-			PaymentDetail p = PaymentDetail.getInstance();
+			Payment p = Payment.getInstance();
 			p.setFeeCourseId(feeCourseId);
 			p.setAmount(payableAmt);
 			p.setSemId(semId);

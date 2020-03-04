@@ -18,5 +18,4 @@ public class CollegeFeeRegisterApplication extends SpringBootServletInitializer 
 	public static void main(String[] args) {
 		SpringApplication.run(CollegeFeeRegisterApplication.class, args);
 	}
-
 }

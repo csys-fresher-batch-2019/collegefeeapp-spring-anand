@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation;
-import com.chainsys.collegefeeregister.model.Stud_Class;
+import com.chainsys.collegefeeregister.model.Student;
 
 @WebServlet("/AddStudent")
 public class AddStudent extends HttpServlet {
@@ -30,7 +30,7 @@ public class AddStudent extends HttpServlet {
 
 		try {
 
-			Stud_Class s = Stud_Class.getInstance();
+			Student s = Student.getInstance();
 			s.setRegno(regno);
 			s.setName(name);
 			s.setCourse_id(courseId);

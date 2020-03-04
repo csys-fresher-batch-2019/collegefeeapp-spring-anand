@@ -2,7 +2,7 @@ package com.chainsys.collegefeeregister.dao;
 
 import java.util.ArrayList;
 
-public interface DeptInterface {
+public interface DepartmentDAO {
 
 	void addDepartment(String name) throws Exception;
 	int getDepartmentId(String departmentName) throws Exception;	

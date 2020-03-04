@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.chainsys.collegefeeregister.model.Course;
 
-public interface CourseInterface {
+public interface CourseDAO {
 
 	void addCourse(int deptid, int degid) throws Exception;
 

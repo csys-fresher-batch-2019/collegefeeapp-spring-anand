@@ -9,22 +9,22 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.chainsys.collegefeeregister.dao.PaymentInterface;
-import com.chainsys.collegefeeregister.model.PaymentDetail;
-import com.chainsys.collegefeeregister.sxcException.DbException;
-import com.chainsys.collegefeeregister.sxcException.NotFoundException;
+import com.chainsys.collegefeeregister.dao.PaymentDAO;
+import com.chainsys.collegefeeregister.exception.DbException;
+import com.chainsys.collegefeeregister.exception.NotFoundException;
+import com.chainsys.collegefeeregister.model.Payment;
 import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.MailUtil;
 import com.chainsys.collegefeeregister.util.TestConnect;
 
 @Repository
-public class PaymentDAOImplementation implements PaymentInterface {
+public class PaymentDAOImplementation implements PaymentDAO {
 
 	public static PaymentDAOImplementation getInstance() {
 		return new PaymentDAOImplementation();
 	}
 
-	public void addPayment(PaymentDetail p) throws DbException {
+	public void addPayment(Payment p) throws DbException {
 
 		Logger logger = Logger.getInstance();
 
@@ -56,7 +56,7 @@ public class PaymentDAOImplementation implements PaymentInterface {
 		}
 	}
 
-	public List<PaymentDetail> listbysem(int semId) throws DbException, NotFoundException {
+	public List<Payment> listbysem(int semId) throws DbException, NotFoundException {
 		Logger logger = Logger.getInstance();
 
 		String sql = "select payment_id,payment_date,std_id,course_fee_id,paid_amount from payment where sem_id="
@@ -67,11 +67,11 @@ public class PaymentDAOImplementation implements PaymentInterface {
 
 			try (ResultSet rs = st.executeQuery(sql);) {
 
-				ArrayList<PaymentDetail> list = new ArrayList<>();
+				ArrayList<Payment> list = new ArrayList<>();
 
 				while (rs.next()) {
 
-					PaymentDetail pd = PaymentDetail.getInstance();
+					Payment pd = Payment.getInstance();
 					pd.setId(rs.getInt("payment_id"));
 					pd.setAmount(rs.getInt("paid_amount"));
 
@@ -94,7 +94,7 @@ public class PaymentDAOImplementation implements PaymentInterface {
 		}
 	}
 
-	public List<PaymentDetail> listbyregno(String regno) throws DbException, NotFoundException {
+	public List<Payment> listbyregno(String regno) throws DbException, NotFoundException {
 		Logger logger = Logger.getInstance();
 		String sql = "select payment_id,payment_date,course_fee_id,sem_id,paid_amount from payment where std_id='"
 				+ regno + "'";
@@ -104,10 +104,10 @@ public class PaymentDAOImplementation implements PaymentInterface {
 
 			try (ResultSet rs = st.executeQuery(sql);) {
 
-				ArrayList<PaymentDetail> list = new ArrayList<>();
+				ArrayList<Payment> list = new ArrayList<>();
 
 				while (rs.next()) {
-					PaymentDetail pd = PaymentDetail.getInstance();
+					Payment pd = Payment.getInstance();
 
 					pd.setId(rs.getInt("payment_id"));
 					pd.setSemId(rs.getInt("sem_id"));
@@ -129,7 +129,7 @@ public class PaymentDAOImplementation implements PaymentInterface {
 
 	}
 
-	public List<PaymentDetail> listAll() throws DbException, NotFoundException {
+	public List<Payment> listAll() throws DbException, NotFoundException {
 		Logger logger = Logger.getInstance();
 		String sql = "select payment_id,payment_date,course_fee_id,sem_id,paid_amount,std_id from payment";
 		logger.info(sql);
@@ -138,11 +138,11 @@ public class PaymentDAOImplementation implements PaymentInterface {
 
 			try (ResultSet rs = st.executeQuery(sql);) {
 
-				ArrayList<PaymentDetail> list = new ArrayList<>();
+				ArrayList<Payment> list = new ArrayList<>();
 
 				while (rs.next()) {
 
-					PaymentDetail pd = PaymentDetail.getInstance();
+					Payment pd = Payment.getInstance();
 					pd.setId(rs.getInt("payment_id"));
 					pd.setSemId(rs.getInt("sem_id"));
 					pd.setAmount(rs.getInt("paid_amount"));

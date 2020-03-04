@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chainsys.collegefeeregister.dao.CourseInterface;
+import com.chainsys.collegefeeregister.dao.CourseDAO;
 import com.chainsys.collegefeeregister.model.Course;
 
 @RestController
@@ -17,7 +17,7 @@ import com.chainsys.collegefeeregister.model.Course;
 public class CourseController {
 
 	@Autowired
-	CourseInterface obj;
+	CourseDAO obj;
 
 	@PostMapping("/addCourse")
 	public void addCourse(@RequestParam("degId") int degId, @RequestParam("deptId") int deptId) {

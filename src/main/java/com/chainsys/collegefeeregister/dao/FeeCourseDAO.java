@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.dao;
 
-public interface FeeCourseInterface {
+public interface FeeCourseDAO {
 	
 	void addCourseFee(int courseid,int feeCategoryId,int amount) throws Exception;
 	

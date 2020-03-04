@@ -19,16 +19,17 @@ public class AddDepartment extends HttpServlet {
 			throws ServletException, IOException {
 		String name = request.getParameter("department_name");
 		DeptDAOImplementation obj = DeptDAOImplementation.getInstance();
+		RequestDispatcher rd = null;
 		try {
 			obj.addDepartment(name);
 			request.setAttribute("infoMessage", "Department Added");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Department Not Added");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 
 		}

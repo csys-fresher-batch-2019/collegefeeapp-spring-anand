@@ -3,7 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chainsys.collegefeeregister.model.Semester"%>
 <%@page import="com.chainsys.collegefeeregister.dao.impl.SemesterDAOImplementation"%>
-<%@page import="com.chainsys.collegefeeregister.model.Stud_Class"%>
+<%@page import="com.chainsys.collegefeeregister.model.Student"%>
 <%@page import="com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -22,7 +22,7 @@
 	<%
 		String user = (String) session.getAttribute("LOGGED_IN_USERNAME");
 
-		if (user != null) {
+			if (user != null) {
 	%>
 
 	<jsp:include page="Menu.jsp"></jsp:include>
@@ -33,8 +33,8 @@
 			Student Regno: <input name="regno_name" list="regno_list" required>
 			<datalist id="regno_list"> <%
  	StudentDAOImplementation objstd = StudentDAOImplementation.getInstance();
- 		ArrayList<Stud_Class> stdlist = objstd.getAllActiveStudents();
- 		for (Stud_Class s : stdlist) {
+  		ArrayList<Student> stdlist = objstd.getAllActiveStudents();
+  		for (Student s : stdlist) {
  %><option value="<%=s.getRegno()%>"><%=s.getName()%></option>
 			<%
 				}

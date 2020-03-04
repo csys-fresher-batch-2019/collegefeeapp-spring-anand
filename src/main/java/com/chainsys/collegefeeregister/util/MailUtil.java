@@ -19,11 +19,11 @@ import javax.mail.internet.MimeMultipart;
 
 import org.springframework.stereotype.Component;
 
-import com.chainsys.collegefeeregister.model.PaymentDetail;
+import com.chainsys.collegefeeregister.model.Payment;
 
 @Component
 public class MailUtil {
-	public static void send(final String from, final String password, String to, String sub, PaymentDetail p)
+	public static void send(final String from, final String password, String to, String sub, Payment p)
 			throws IOException {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -50,7 +50,7 @@ public class MailUtil {
 		}
 	}
 
-	private static Multipart messageBody(PaymentDetail p) throws MessagingException {
+	private static Multipart messageBody(Payment p) throws MessagingException {
 
 		BodyPart messageBodyPart2 = new MimeBodyPart();
 		messageBodyPart2.setText("STUDENT REGNO: " + p.getRegno() + "\n");

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation;
+import com.chainsys.collegefeeregister.service.DepartmentService;
 
 @WebServlet("/AddDepartment")
 public class AddDepartment extends HttpServlet {
@@ -18,7 +18,7 @@ public class AddDepartment extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String name = request.getParameter("department_name");
-		DeptDAOImplementation obj = DeptDAOImplementation.getInstance();
+		DepartmentService obj = new DepartmentService();
 		RequestDispatcher rd = null;
 		try {
 			obj.addDepartment(name);

@@ -1,8 +1,8 @@
 package com.chainsys.collegefeeregister.servlet;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation;
 import com.chainsys.collegefeeregister.model.Course;
+import com.chainsys.collegefeeregister.service.CourseService;
 
 @WebServlet("/AddStudentLoad")
 public class AddStudentLoad extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public AddStudentLoad() {
 		super();
 	}
@@ -28,7 +25,7 @@ public class AddStudentLoad extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			CourseDAOImplementation obj = CourseDAOImplementation.getInstance();
+			CourseService obj = new CourseService();
 			ArrayList<Course> Courses = obj.getAllCourse();
 			request.setAttribute("CoursesList", Courses);
 

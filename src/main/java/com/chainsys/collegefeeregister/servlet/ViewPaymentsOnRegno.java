@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.PaymentDAOImplementation;
 import com.chainsys.collegefeeregister.exception.DbException;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Payment;
+import com.chainsys.collegefeeregister.service.PaymentService;
 
 @WebServlet("/ViewPaymentsOnRegno")
 public class ViewPaymentsOnRegno extends HttpServlet {
@@ -26,7 +26,7 @@ public class ViewPaymentsOnRegno extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String regno = request.getParameter("regno_name");
-		PaymentDAOImplementation obj = PaymentDAOImplementation.getInstance();
+		PaymentService obj = new PaymentService();
 		try {
 			List<Payment> list = obj.listbyregno(regno);
 			request.setAttribute("PayList", list);

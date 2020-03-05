@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.DegreeDAOImplementation;
+import com.chainsys.collegefeeregister.service.DegreeService;
 
 @WebServlet("/AddDegree")
 public class AddDegree extends HttpServlet {
@@ -23,7 +23,7 @@ public class AddDegree extends HttpServlet {
 			throws ServletException, IOException {
 
 		String name = request.getParameter("degree_name");
-		DegreeDAOImplementation obj = DegreeDAOImplementation.getInstance();
+		DegreeService obj = new DegreeService();
 		try {
 			obj.addDegree(name);
 			request.setAttribute("infoMessage", "Degree Added");

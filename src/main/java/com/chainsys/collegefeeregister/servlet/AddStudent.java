@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation;
 import com.chainsys.collegefeeregister.model.Student;
+import com.chainsys.collegefeeregister.service.StudentService;
 
 @WebServlet("/AddStudent")
 public class AddStudent extends HttpServlet {
@@ -30,13 +30,13 @@ public class AddStudent extends HttpServlet {
 
 		try {
 
-			Student s = Student.getInstance();
+			Student s = new Student();
 			s.setRegno(regno);
 			s.setName(name);
 			s.setCourse_id(courseId);
 			s.setMail(email);
 
-			StudentDAOImplementation obj = StudentDAOImplementation.getInstance();
+			StudentService obj = new StudentService();
 			obj.addStudent(s);
 			request.setAttribute("infoMessage", "Student Added");
 			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");

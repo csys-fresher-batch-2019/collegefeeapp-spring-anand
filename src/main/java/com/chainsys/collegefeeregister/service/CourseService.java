@@ -2,17 +2,16 @@ package com.chainsys.collegefeeregister.service;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.CourseDAO;
+import com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation;
 import com.chainsys.collegefeeregister.model.Course;
 
 @Service
 public class CourseService {
 
-	@Autowired
-	CourseDAO obj;
+	CourseDAO obj = new CourseDAOImplementation();
 
 	public void addCourse(int deptId, int degId) throws Exception {
 		obj.addCourse(deptId, degId);

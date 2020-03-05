@@ -1,5 +1,6 @@
-<%@page import="com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation"%>
-<%@page import="com.chainsys.collegefeeregister.dao.impl.DegreeDAOImplementation"%>
+<%@page
+	import="com.chainsys.collegefeeregister.service.DepartmentService"%>
+<%@page import="com.chainsys.collegefeeregister.service.DegreeService"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	crossorigin="anonymous">
 </head>
-<body>
+<body style="text-align: center">
 	<%
 		String user = (String) session.getAttribute("LOGGED_IN_USERNAME");
 
@@ -18,59 +19,57 @@
 	%>
 
 	<jsp:include page="Menu.jsp"></jsp:include>
-	<center>
+	<%
+		String infoMessage = (String) request.getAttribute("infoMessage");
+			String errorMessage = (String) request.getAttribute("errorMessage");
+			if (infoMessage != null)
+				out.println(infoMessage);
+			if (errorMessage != null)
+				out.println(errorMessage);
+	%>
+	<h1>ADD COURSE</h1>
+	<br>
+
+	<form action="AddCourse">
+
+		Search by Name (Degree):
 		<%
-			String infoMessage = (String) request.getAttribute("infoMessage");
-				String errorMessage = (String) request.getAttribute("errorMessage");
-				if (infoMessage != null)
-					out.println(infoMessage);
-				if (errorMessage != null)
-					out.println(errorMessage);
-		%>
-		<h1>ADD COURSE</h1>
-		<br>
+		DegreeService obj1 = new DegreeService();
+			ArrayList<String> names1 = obj1.getAllDegree();
+	%>
+		<input name="degree_name" list="degree_list" required>
 
-		<form action="AddCourse">
-
-			Search by Name (Degree):
+		<datalist id="degree_list">
 			<%
-			DegreeDAOImplementation obj1 = DegreeDAOImplementation.getInstance();
-				ArrayList<String> names1 = obj1.getAllDegree();
-		%>
-			<input name="degree_name" list="degree_list" required>
-
-			<datalist id="degree_list">
-				<%
-					for (String a : names1) {
-				%>
-				<option value="<%=a%>"><%=a%></option>
-				<%
-					}
-				%>
-
-			</datalist>
-			<br> <br> Search by Name (Department):
+				for (String a : names1) {
+			%>
+			<option value="<%=a%>"><%=a%></option>
 			<%
- 	DeptDAOImplementation obj2 = DeptDAOImplementation.getInstance();
+				}
+			%>
+
+		</datalist>
+		<br> <br> Search by Name (Department):
+		<%
+ 	DepartmentService obj2 = new DepartmentService();
  		ArrayList<String> names2 = obj2.listAllDepartments();
  %>
-			<input name="department_name" list="department_list" required>
+		<input name="department_name" list="department_list" required>
 
-			<datalist id="department_list">
+		<datalist id="department_list">
 
-				<%
-					for (String a : names2) {
-				%>
-				<option value="<%=a%>"><%=a%></option>
-				<%
-					}
-				%>
-			</datalist>
-			<br> <br>
+			<%
+				for (String a : names2) {
+			%>
+			<option value="<%=a%>"><%=a%></option>
+			<%
+				}
+			%>
+		</datalist>
+		<br> <br>
 
-			<button type="submit" class="btn btn-success">SUBMIT</button>
-		</form>
-	</center>
+		<button type="submit" class="btn btn-success">SUBMIT</button>
+	</form>
 
 	<%
 		} else {

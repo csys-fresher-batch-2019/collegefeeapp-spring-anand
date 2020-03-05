@@ -2,35 +2,34 @@ package com.chainsys.collegefeeregister.service;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.StudentDAO;
+import com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation;
 import com.chainsys.collegefeeregister.model.Student;
 
 @Service
 public class StudentService {
 
-	@Autowired
-	StudentDAO obj;
+	StudentDAO obj = new StudentDAOImplementation();
 
 	public void addStudent(Student s) throws Exception {
 		obj.addStudent(s);
 	}
 
-	void updateStudentName(Student s) throws Exception {
+	public void updateStudentName(Student s) throws Exception {
 		obj.updateStudentName(s);
 	}
 
-	void deleteStudent(Student s) throws Exception {
+	public void deleteStudent(Student s) throws Exception {
 		obj.deleteStudent(s);
 	}
 
-	ArrayList<Student> getAllActiveStudents() throws Exception {
+	public ArrayList<Student> getAllActiveStudents() throws Exception {
 		return obj.getAllActiveStudents();
 	}
 
-	ArrayList<Student> getActiveStudentsByCourse(int courseId) throws Exception {
+	public ArrayList<Student> getActiveStudentsByCourse(int courseId) throws Exception {
 		return obj.getActiveStudentsByCourse(courseId);
 	}
 

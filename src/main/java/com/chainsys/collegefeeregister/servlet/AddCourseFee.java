@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.collegefeeregister.dao.impl.FeeCourseDAOImplementation;
-import com.chainsys.collegefeeregister.model.FeeCourse;
+import com.chainsys.collegefeeregister.service.FeeCourseService;
 
 @WebServlet("/AddCourseFee")
 public class AddCourseFee extends HttpServlet {
@@ -27,8 +27,8 @@ public class AddCourseFee extends HttpServlet {
 		int categoryId = Integer.parseInt(request.getParameter("category"));
 		int amount = Integer.parseInt(request.getParameter("txtamount"));
 
-		FeeCourseDAOImplementation objfc = FeeCourseDAOImplementation.getInstance();
-		
+		FeeCourseService objfc = new FeeCourseService();
+
 		try {
 			objfc.addCourseFee(courseId, categoryId, amount);
 			request.setAttribute("infoMessage", "CourseFee Added");

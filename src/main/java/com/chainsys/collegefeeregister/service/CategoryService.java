@@ -2,17 +2,16 @@ package com.chainsys.collegefeeregister.service;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.CategoryDAO;
+import com.chainsys.collegefeeregister.dao.impl.CategoryDAOImplementation;
 import com.chainsys.collegefeeregister.model.Category;
 
 @Service
 public class CategoryService {
 
-	@Autowired
-	CategoryDAO obj;
+	CategoryDAO obj = new CategoryDAOImplementation();
 
 	public void addFeeCategory(Category c) throws Exception {
 		obj.addFeeCategory(c);

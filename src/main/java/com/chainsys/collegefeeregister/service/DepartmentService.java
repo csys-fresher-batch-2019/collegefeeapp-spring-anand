@@ -2,16 +2,15 @@ package com.chainsys.collegefeeregister.service;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.DepartmentDAO;
+import com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation;
 
 @Service
 public class DepartmentService {
 
-	@Autowired
-	DepartmentDAO obj;
+	DepartmentDAO obj = new DeptDAOImplementation();
 
 	public void addDepartment(String name) throws Exception {
 		obj.addDepartment(name);

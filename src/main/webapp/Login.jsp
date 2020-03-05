@@ -6,24 +6,22 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	crossorigin="anonymous">
 </head>
-<body>
+<body style="text-align: center">
 
-	<center>
-		<%
-			String errorMessage = (String) request.getAttribute("errorMessage");
-			if (errorMessage != null)
-				out.println(errorMessage);
-		%>
+	<%
+		String errorMessage = (String) request.getAttribute("errorMessage");
+		if (errorMessage != null)
+			out.println(errorMessage);
+	%>
 
-		<form action="Login" method="post">
-			<h1>ADMIN LOGIN</h1>
-			<br> <br> Enter username: <input type="text"
-				name="username" required><br> <br> Enter password:
-			<input type="password" name="password" required><br> <br>
-			<button type="submit" class="btn btn-success">submit</button>
-		</form>
+	<form action="Login" method="post">
+		<h1>ADMIN LOGIN</h1>
+		<br> <br> Enter username: <input type="text" name="username"
+			required><br> <br> Enter password: <input
+			type="password" name="password" required><br> <br>
+		<button type="submit" class="btn btn-success">submit</button>
+	</form>
 
-	</center>
 </body>
 </html>
 

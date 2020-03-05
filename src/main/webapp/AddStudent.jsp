@@ -1,8 +1,6 @@
-<%@page import="com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation"%>
+<%@page import="com.chainsys.collegefeeregister.service.CourseService"%>
 <%@page import="com.chainsys.collegefeeregister.model.Course"%>
-<%@page import="com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.chainsys.collegefeeregister.dao.impl.DegreeDAOImplementation"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <html>
@@ -13,7 +11,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	crossorigin="anonymous">
 </head>
-<body>
+<body style="text-align: center">
+
 	<%
 		String user = (String) session.getAttribute("LOGGED_IN_USERNAME");
 
@@ -21,37 +20,40 @@
 	%>
 
 	<jsp:include page="Menu.jsp"></jsp:include>
-	<center>
-		<h1>ADD STUDENT</h1>
-		<br> <br>
-		<%
-			ArrayList<Course> courses = (ArrayList) request.getAttribute("CoursesList");
-				String infoMessage = (String) request.getAttribute("infoMessage");
-				String errorMessage = (String) request.getAttribute("errorMessage");
-				if (infoMessage != null)
-					out.println(infoMessage);
-				if (errorMessage != null)
-					out.println(errorMessage);
-		%>
-		<form action="AddStudent">
-			Enter Regno: <input type="text" name="txtregno" required> <br> <br>
-			Enter Student Name:<input type="text" name="txtname" required> <br>
-			<br> Select Course:<select name="course">
-				<%
-					CourseDAOImplementation obj = CourseDAOImplementation.getInstance();
-						for (Course c : courses) {
-				%>
-				<option value="<%=c.getCourseId()%>">
-					<%=obj.getCourseName(c.getCourseId())%>
-				</option>
-				<%
-					}
-				%>
 
-			</select> <br> <br> Enter mail id:<input type="email" id="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" title="Example:xyz@gmail.com" name="email"> <br> <br>
-			<button type="submit" class="btn btn-success">Submit</button>
-		</form>
-	</center>
+	<h1>ADD STUDENT</h1>
+	<br>
+	<br>
+	<%
+		ArrayList<Course> courses = (ArrayList) request.getAttribute("CoursesList");
+			String infoMessage = (String) request.getAttribute("infoMessage");
+			String errorMessage = (String) request.getAttribute("errorMessage");
+			if (infoMessage != null)
+				out.println(infoMessage);
+			if (errorMessage != null)
+				out.println(errorMessage);
+	%>
+	<form action="AddStudent">
+		Enter Regno: <input type="text" name="txtregno" required> <br>
+		<br> Enter Student Name:<input type="text" name="txtname"
+			required> <br> <br> Select Course:<select
+			name="course">
+			<%
+				CourseService t = new CourseService();
+					for (Course c : courses) {
+			%>
+			<option value="<%=c.getCourseId()%>">
+				<%=t.getCourseName(c.getCourseId())%>
+			</option>
+			<%
+				}
+			%>
+
+		</select> <br> <br> Enter mail id:<input type="email" id="email"
+			pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+			title="Example:xyz@gmail.com" name="email"> <br> <br>
+		<button type="submit" class="btn btn-success">Submit</button>
+	</form>
 	<%
 		} else {
 			response.sendRedirect("Login.jsp");

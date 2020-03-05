@@ -14,6 +14,9 @@ import com.chainsys.collegefeeregister.dao.impl.PaymentDAOImplementation;
 import com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation;
 import com.chainsys.collegefeeregister.model.Payment;
 import com.chainsys.collegefeeregister.model.Student;
+import com.chainsys.collegefeeregister.service.FeeCourseService;
+import com.chainsys.collegefeeregister.service.PaymentService;
+import com.chainsys.collegefeeregister.service.StudentService;
 
 @WebServlet("/AddPayment")
 public class AddPayment extends HttpServlet {
@@ -34,9 +37,9 @@ public class AddPayment extends HttpServlet {
 		int categoryId = Integer.parseInt(request.getParameter("cat_name"));
 		int semId = Integer.parseInt(request.getParameter("sem_name"));
 
-		StudentDAOImplementation objstd = StudentDAOImplementation.getInstance();
-		FeeCourseDAOImplementation objfc = FeeCourseDAOImplementation.getInstance();
-		Student s = Student.getInstance();
+		StudentService objstd = new StudentService();
+		FeeCourseService objfc = new FeeCourseService();
+		Student s = new Student();
 
 		try {
 			s.setRegno(regno);
@@ -50,7 +53,7 @@ public class AddPayment extends HttpServlet {
 			p.setSemId(semId);
 			p.setRegno(regno);
 
-			PaymentDAOImplementation obj = PaymentDAOImplementation.getInstance();
+			PaymentService obj = new PaymentService();
 			obj.addPayment(p);
 
 			request.setAttribute("infoMessage", "SUCCESS");

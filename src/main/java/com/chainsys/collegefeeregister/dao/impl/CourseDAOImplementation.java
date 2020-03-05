@@ -69,6 +69,8 @@ public class CourseDAOImplementation implements CourseDAO {
 			// logger.info(sql1);
 
 			stmt.setInt(1, courseId);
+			stmt1.setInt(1, courseId);
+
 			try (ResultSet rs1 = stmt.executeQuery();) {
 				if (rs1.next()) {
 					deptName = rs1.getString("dept_name");
@@ -77,7 +79,6 @@ public class CourseDAOImplementation implements CourseDAO {
 
 			// logger.info(sql2);
 
-			stmt.setInt(1, courseId);
 			try (ResultSet rs2 = stmt1.executeQuery();) {
 
 				if (rs2.next()) {

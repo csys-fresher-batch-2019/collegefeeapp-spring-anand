@@ -14,14 +14,13 @@ import com.chainsys.collegefeeregister.dao.impl.CategoryDAOImplementation;
 import com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation;
 import com.chainsys.collegefeeregister.model.Category;
 import com.chainsys.collegefeeregister.model.Course;
+import com.chainsys.collegefeeregister.service.CategoryService;
+import com.chainsys.collegefeeregister.service.CourseService;
 
 @WebServlet("/AddCourseFeeLoad")
 public class AddCourseFeeLoad extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public AddCourseFeeLoad() {
 		super();
 	}
@@ -30,11 +29,11 @@ public class AddCourseFeeLoad extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			CourseDAOImplementation obj1 = CourseDAOImplementation.getInstance();
+			CourseService obj1 = new CourseService();
 			ArrayList<Course> Courses = obj1.getAllCourse();
 			request.setAttribute("CourseList", Courses);
 
-			CategoryDAOImplementation obj2 = CategoryDAOImplementation.getInstance();
+			CategoryService obj2 = new CategoryService();
 			ArrayList<Category> Categories = obj2.getAllCategory();
 			request.setAttribute("CategoryList", Categories);
 

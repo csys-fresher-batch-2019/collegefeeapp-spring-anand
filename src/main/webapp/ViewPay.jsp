@@ -8,7 +8,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	crossorigin="anonymous">
 </head>
-<body>
+<body  style="text-align: center">
 	<center>
 		<%
 			String user = (String) session.getAttribute("LOGGED_IN_USERNAME");

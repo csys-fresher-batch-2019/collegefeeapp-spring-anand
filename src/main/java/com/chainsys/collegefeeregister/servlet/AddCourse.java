@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation;
+import com.chainsys.collegefeeregister.service.CourseService;
 import com.chainsys.collegefeeregister.service.DegreeService;
 import com.chainsys.collegefeeregister.service.DepartmentService;
 
@@ -35,7 +35,7 @@ public class AddCourse extends HttpServlet {
 		try {
 			deptId = objDept.getDepartmentId(deptName);
 			degId = objDeg.getDegreeId(degName);
-			CourseDAOImplementation obj = CourseDAOImplementation.getInstance();
+			CourseService obj = new CourseService();
 			try {
 				obj.addCourse(deptId, degId);
 				request.setAttribute("infoMessage", "Course Added");

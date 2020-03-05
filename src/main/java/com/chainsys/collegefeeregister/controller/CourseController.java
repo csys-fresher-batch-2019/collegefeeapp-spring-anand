@@ -40,4 +40,16 @@ public class CourseController {
 		}
 	}
 
+	@GetMapping("/GetCourseName")
+	public String getCourseName(int courseId) {
+		String name = null;
+		try {
+			name = obj.getCourseName(courseId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return name;
+
+	}
+
 }

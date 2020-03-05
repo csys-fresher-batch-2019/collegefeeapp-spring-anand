@@ -29,7 +29,7 @@ public class AddCategory extends HttpServlet {
 		String category_name = request.getParameter("category_name");
 
 		CategoryService cs = new CategoryService();
-		Category c = Category.getInstance();
+		Category c = new Category();
 		c.setName(category_name);
 		RequestDispatcher rd = null;
 		try {

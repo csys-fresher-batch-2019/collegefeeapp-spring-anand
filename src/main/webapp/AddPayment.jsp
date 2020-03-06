@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.chainsys.collegefeeregister.model.Category"%>
 <%@page import="com.chainsys.collegefeeregister.model.Semester"%>
@@ -19,60 +20,52 @@
 
 </head>
 <body style="text-align: center">
-	<%
-		String user = (String) session.getAttribute("LOGGED_IN_USERNAME");
-
-		if (user != null) {
-	%>
-
-	<jsp:include page="Menu.jsp"></jsp:include>
-
-	<h1>PAYMENT REGISTER</h1>
-	<br>
-	<br>
-	<form action="AddPayment">
-		Student Regno: <input name="regno_name" list="regno_list" required>
-		<datalist id="regno_list"> <%
+	<c:choose>
+		<c:when test="${not empty LOGGED_IN_USERNAME }">
+			<jsp:include page="Menu.jsp"></jsp:include>
+			<h1>PAYMENT REGISTER</h1>
+			<br>
+			<br>
+			<form action="AddPayment">
+				Student Regno: <input name="regno_name" list="regno_list" required>
+				<datalist id="regno_list"> <%
  	StudentService objstd = new StudentService();
- 		ArrayList<Student> stdlist = objstd.getAllActiveStudents();
- 		for (Student s : stdlist) {
+ 			ArrayList<Student> stdlist = objstd.getAllActiveStudents();
+ 			for (Student s : stdlist) {
  %><option value="<%=s.getRegno()%>"><%=s.getName()%></option>
-		<%
-			}
-		%> </datalist>
-		<br> <br> Select semester:<input name="sem_name"
-			list="sem_list" required>
-		<datalist id="sem_list"> <%
+				<%
+					}
+				%> </datalist>
+				<br> <br> Select semester:<input name="sem_name"
+					list="sem_list" required>
+				<datalist id="sem_list"> <%
  	SemesterService objsem = new SemesterService();
- 		ArrayList<Semester> semlist = objsem.getAllSemester();
- 		for (Semester s1 : semlist) {
+ 			ArrayList<Semester> semlist = objsem.getAllSemester();
+ 			for (Semester s1 : semlist) {
  %><option value="<%=s1.getId()%>">
-			<%=objsem.getSemester(s1)%>
-		</option>
-		<%
-			}
-		%> </datalist>
-		<br> <br> Select Category:<input name=cat_name
-			" list="cat_list" required>
-		<datalist id="cat_list"> <%
+					<%=objsem.getSemester(s1)%>
+				</option>
+				<%
+					}
+				%> </datalist>
+				<br> <br> Select Category:<input name=cat_name
+					" list="cat_list" required>
+				<datalist id="cat_list"> <%
  	CategoryService objcat = new CategoryService();
- 		ArrayList<Category> catlist = objcat.getAllCategory();
- 		for (Category c1 : catlist) {
+ 			ArrayList<Category> catlist = objcat.getAllCategory();
+ 			for (Category c1 : catlist) {
  %><option value=<%=c1.getId()%>><%=c1.getName()%>
-		</option>
-		<%
-			}
-		%> </datalist>
-		<br> <br>
-
-		<button type="submit" class="btn btn-success">submit</button>
-
-	</form>
-
-	<%
-		} else {
-			response.sendRedirect("Login.jsp");
-		}
-	%>
+				</option>
+				<%
+					}
+				%> </datalist>
+				<br> <br>
+				<button type="submit" class="btn btn-success">submit</button>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<c:redirect url="Login.jsp" />
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

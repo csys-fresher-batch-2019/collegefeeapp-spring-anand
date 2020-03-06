@@ -21,12 +21,13 @@ public class CategoryController {
 
 	@GetMapping("/GetAllCategory")
 	public ArrayList<Category> getAllCategory() {
+		ArrayList<Category> catlist = null;
 		try {
-			obj.getAllCategory();
+			catlist = obj.getAllCategory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return catlist;
 	}
 
 	@PostMapping("/AddCategory")

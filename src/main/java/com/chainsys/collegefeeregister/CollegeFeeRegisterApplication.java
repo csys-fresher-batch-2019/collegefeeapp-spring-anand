@@ -19,3 +19,4 @@ public class CollegeFeeRegisterApplication extends SpringBootServletInitializer 
 		SpringApplication.run(CollegeFeeRegisterApplication.class, args);
 	}
 }
+

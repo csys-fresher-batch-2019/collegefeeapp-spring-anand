@@ -28,21 +28,22 @@ public class ViewPaymentsOnSem extends HttpServlet {
 
 		int semId = Integer.parseInt(request.getParameter("sem_name"));
 		PaymentService objp = new PaymentService();
+		RequestDispatcher rd = null;
 		try {
 			List<Payment> list = objp.listbysem(semId);
 			request.setAttribute("PayList", list);
-			RequestDispatcher rd = request.getRequestDispatcher("ViewPay.jsp");
+			rd = request.getRequestDispatcher("ViewPay.jsp");
 			rd.forward(request, response);
 		} catch (DbException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "No records Found");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "No records Found");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 
 		}

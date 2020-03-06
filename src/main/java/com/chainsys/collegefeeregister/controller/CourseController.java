@@ -31,13 +31,13 @@ public class CourseController {
 
 	@GetMapping("/GetAllCourse")
 	public ArrayList<Course> list() {
-
+		ArrayList<Course> list = null;
 		try {
-			return obj.getAllCourse();
+			list = obj.getAllCourse();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
+		return list;
 	}
 
 	@GetMapping("/GetCourseName")

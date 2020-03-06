@@ -30,14 +30,12 @@ public class DepartmentController {
 
 	@GetMapping("/GetAllDept")
 	public ArrayList<String> list() {
-
+		ArrayList<String> list = null;
 		try {
-			return obj.listAllDepartments();
+			list = obj.listAllDepartments();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
-
+		return list;
 	}
-
 }

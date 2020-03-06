@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.chainsys.collegefeeregister.service.CourseService"%>
 <%@page import="com.chainsys.collegefeeregister.service.CategoryService"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,59 +16,53 @@
 	crossorigin="anonymous">
 </head>
 <body style="text-align: center">
-	<%
-		String user = (String) session.getAttribute("LOGGED_IN_USERNAME");
-
-		if (user != null) {
-	%>
-
-	<jsp:include page="Menu.jsp"></jsp:include>
-
-	<h1>ADD COURSE FEE</h1>
-	<br>
-	<br>
-	<%
-		ArrayList<Course> courses = (ArrayList) request.getAttribute("CourseList");
-			ArrayList<Category> categories = (ArrayList) request.getAttribute("CategoryList");
-			String infoMessage = (String) request.getAttribute("infoMessage");
-			String errorMessage = (String) request.getAttribute("errorMessage");
-			if (infoMessage != null)
-				out.println(infoMessage);
-			if (errorMessage != null)
-				out.println(errorMessage);
-	%>
-
-	<form action="AddCourseFee">
-		Select Course: <select name="course">
+	<c:choose>
+		<c:when test="${not empty LOGGED_IN_USERNAME }">
+			<jsp:include page="Menu.jsp"></jsp:include>
+			<h1>ADD COURSE FEE</h1>
+			<br>
+			<br>
 			<%
-				CourseService obj1 = new CourseService();
-					for (Course c : courses) {
+				ArrayList<Course> courses = (ArrayList) request.getAttribute("CourseList");
+						ArrayList<Category> categories = (ArrayList) request.getAttribute("CategoryList");
+						String infoMessage = (String) request.getAttribute("infoMessage");
+						String errorMessage = (String) request.getAttribute("errorMessage");
+						if (infoMessage != null)
+							out.println(infoMessage);
+						if (errorMessage != null)
+							out.println(errorMessage);
 			%>
-			<option value="<%=c.getCourseId()%>">
-				<%=obj1.getCourseName(c.getCourseId())%>
-			</option>
-			<%
-				}
-			%>
-		</select><br> <br> Select Category:<select name="category">
-			<%
-				CategoryService obj2 = new CategoryService();
-					for (Category cc : categories) {
-			%>
-			<option value="<%=cc.getId()%>">
-				<%=cc.getName()%>
-			</option>
-			<%
-				}
-			%>
-		</select><br> <br> Enter amount: <input type="number"
-			name="txtamount" min=1 required><br> <br>
-		<button type="submit" class="btn btn-success">SUBMIT</button>
-	</form>
-	<%
-		} else {
-			response.sendRedirect("Login.jsp");
-		}
-	%>
+			<form action="AddCourseFee">
+				Select Course: <select name="course">
+					<%
+						CourseService obj1 = new CourseService();
+								for (Course c : courses) {
+					%>
+					<option value="<%=c.getCourseId()%>">
+						<%=obj1.getCourseName(c.getCourseId())%>
+					</option>
+					<%
+						}
+					%>
+				</select><br> <br> Select Category:<select name="category">
+					<%
+						CategoryService obj2 = new CategoryService();
+								for (Category cc : categories) {
+					%>
+					<option value="<%=cc.getId()%>">
+						<%=cc.getName()%>
+					</option>
+					<%
+						}
+					%>
+				</select><br> <br> Enter amount: <input type="number"
+					name="txtamount" min=1 required><br> <br>
+				<button type="submit" class="btn btn-success">SUBMIT</button>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<c:redirect url="Login.jsp" />
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

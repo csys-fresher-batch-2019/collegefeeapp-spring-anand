@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page
 	import="com.chainsys.collegefeeregister.service.DepartmentService"%>
 <%@page import="com.chainsys.collegefeeregister.service.DegreeService"%>
@@ -12,69 +13,59 @@
 	crossorigin="anonymous">
 </head>
 <body style="text-align: center">
-	<%
-		String user = (String) session.getAttribute("LOGGED_IN_USERNAME");
-
-		if (user != null) {
-	%>
-
-	<jsp:include page="Menu.jsp"></jsp:include>
-	<%
-		String infoMessage = (String) request.getAttribute("infoMessage");
-			String errorMessage = (String) request.getAttribute("errorMessage");
-			if (infoMessage != null)
-				out.println(infoMessage);
-			if (errorMessage != null)
-				out.println(errorMessage);
-	%>
-	<h1>ADD COURSE</h1>
-	<br>
-
-	<form action="AddCourse">
-
-		Search by Name (Degree):
-		<%
-		DegreeService obj1 = new DegreeService();
-			ArrayList<String> names1 = obj1.getAllDegree();
-	%>
-		<input name="degree_name" list="degree_list" required>
-
-		<datalist id="degree_list">
+	<c:choose>
+		<c:when test="${not empty LOGGED_IN_USERNAME}">
+			<jsp:include page="Menu.jsp"></jsp:include>
 			<%
-				for (String a : names1) {
+				String infoMessage = (String) request.getAttribute("infoMessage");
+						String errorMessage = (String) request.getAttribute("errorMessage");
+						if (infoMessage != null)
+							out.println(infoMessage);
+						if (errorMessage != null)
+							out.println(errorMessage);
 			%>
-			<option value="<%=a%>"><%=a%></option>
-			<%
-				}
+			<h1>ADD COURSE</h1>
+			<br>
+			<form action="AddCourse">
+				Search by Name (Degree):
+				<%
+				DegreeService obj1 = new DegreeService();
+						ArrayList<String> names1 = obj1.getAllDegree();
 			%>
-
-		</datalist>
-		<br> <br> Search by Name (Department):
-		<%
+				<input name="degree_name" list="degree_list" required>
+				<datalist id="degree_list">
+					<%
+						for (String a : names1) {
+					%>
+					<option value="<%=a%>"><%=a%></option>
+					<%
+						}
+					%>
+				</datalist>
+				<br> <br> Search by Name (Department):
+				<%
  	DepartmentService obj2 = new DepartmentService();
- 		ArrayList<String> names2 = obj2.listAllDepartments();
+ 			ArrayList<String> names2 = obj2.listAllDepartments();
  %>
-		<input name="department_name" list="department_list" required>
+				<input name="department_name" list="department_list" required>
 
-		<datalist id="department_list">
+				<datalist id="department_list">
 
-			<%
-				for (String a : names2) {
-			%>
-			<option value="<%=a%>"><%=a%></option>
-			<%
-				}
-			%>
-		</datalist>
-		<br> <br>
-
-		<button type="submit" class="btn btn-success">SUBMIT</button>
-	</form>
-
-	<%
-		} else {
-			response.sendRedirect("Login.jsp");
-		}
-	%>
+					<%
+						for (String a : names2) {
+					%>
+					<option value="<%=a%>"><%=a%></option>
+					<%
+						}
+					%>
+				</datalist>
+				<br> <br>
+				<button type="submit" class="btn btn-success">SUBMIT</button>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<c:redirect url="Login.jsp" />
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

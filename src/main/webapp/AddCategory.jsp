@@ -9,25 +9,21 @@
 	crossorigin="anonymous">
 </head>
 <body style="text-align: center">
-
-	<%
-		String user = (String) session.getAttribute("LOGGED_IN_USERNAME");
-
-		if (user != null) {
-	%>
-	<jsp:include page="Menu.jsp"></jsp:include>
-	<h1>ADD CATEGORY</h1>
-	<br>
-	<br>
-	<form action="AddCategory">
-		Enter name: <input type="text" name="category_name" required>
-		<br> <br>
-		<button type="submit" class="btn btn-success">SUBMIT</button>
-	</form>
-	<%
-		} else {
-			response.sendRedirect("Login.jsp");
-		}
-	%>
+	<c:choose>
+		<c:when test="${not empty LOGGED_IN_USERNAME }">
+			<jsp:include page="Menu.jsp"></jsp:include>
+			<h1>ADD CATEGORY</h1>
+			<br>
+			<br>
+			<form action="AddCategory">
+				Enter name: <input type="text" name="category_name" required>
+				<br> <br>
+				<button type="submit" class="btn btn-success">SUBMIT</button>
+			</form>
+		</c:when>
+		<c:otherwise>
+			<c:redirect url="Login.jsp" />
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

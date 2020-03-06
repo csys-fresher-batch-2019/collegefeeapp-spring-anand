@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.CategoryDAOImplementation;
-import com.chainsys.collegefeeregister.dao.impl.CourseDAOImplementation;
 import com.chainsys.collegefeeregister.model.Category;
 import com.chainsys.collegefeeregister.model.Course;
 import com.chainsys.collegefeeregister.service.CategoryService;
@@ -28,6 +26,7 @@ public class AddCourseFeeLoad extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		RequestDispatcher rd = null;
 		try {
 			CourseService obj1 = new CourseService();
 			ArrayList<Course> Courses = obj1.getAllCourse();
@@ -37,11 +36,13 @@ public class AddCourseFeeLoad extends HttpServlet {
 			ArrayList<Category> Categories = obj2.getAllCategory();
 			request.setAttribute("CategoryList", Categories);
 
-			RequestDispatcher rd = request.getRequestDispatcher("AddCourseFee.jsp");
+			rd = request.getRequestDispatcher("AddCourseFee.jsp");
 			rd.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			rd = request.getRequestDispatcher("Menu.jsp");
+			rd.forward(request, response);
 		}
 
 	}

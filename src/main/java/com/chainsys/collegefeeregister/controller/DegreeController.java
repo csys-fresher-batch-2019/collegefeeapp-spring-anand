@@ -29,12 +29,12 @@ public class DegreeController {
 
 	@GetMapping("/GetAllDegree")
 	public ArrayList<String> list() {
-
+		ArrayList<String> list = null;
 		try {
-			return obj.getAllDegree();
+			list = obj.getAllDegree();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		}
+		return list;
 	}
 }

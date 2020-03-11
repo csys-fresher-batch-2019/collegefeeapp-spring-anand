@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.collegefeeregister.service.CourseService;
-import com.chainsys.collegefeeregister.service.DegreeService;
-import com.chainsys.collegefeeregister.service.DepartmentService;
 
 @WebServlet("/AddCourse")
 public class AddCourse extends HttpServlet {
@@ -24,17 +22,9 @@ public class AddCourse extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String degName = request.getParameter("degree_name");
-		String deptName = request.getParameter("department_name");
-
-		DepartmentService objDept = new DepartmentService();
-		DegreeService objDeg = new DegreeService();
-
-		int deptId;
-		int degId;
 		try {
-			deptId = objDept.getDepartmentId(deptName);
-			degId = objDeg.getDegreeId(degName);
+			int deptId = Integer.parseInt(request.getParameter("department_name"));
+			int degId = Integer.parseInt(request.getParameter("degree_name"));
 			CourseService obj = new CourseService();
 			try {
 				obj.addCourse(deptId, degId);

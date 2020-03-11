@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.FeeCourseDAOImplementation;
 import com.chainsys.collegefeeregister.service.FeeCourseService;
 
 @WebServlet("/AddCourseFee")
@@ -26,19 +25,20 @@ public class AddCourseFee extends HttpServlet {
 		int courseId = Integer.parseInt(request.getParameter("course"));
 		int categoryId = Integer.parseInt(request.getParameter("category"));
 		int amount = Integer.parseInt(request.getParameter("txtamount"));
+		RequestDispatcher rd = null;
 
 		FeeCourseService objfc = new FeeCourseService();
 
 		try {
 			objfc.addCourseFee(courseId, categoryId, amount);
 			request.setAttribute("infoMessage", "CourseFee Added");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "CourseFee Not Added");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 		}
 

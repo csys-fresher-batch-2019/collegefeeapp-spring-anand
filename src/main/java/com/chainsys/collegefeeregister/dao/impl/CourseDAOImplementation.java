@@ -3,11 +3,13 @@ package com.chainsys.collegefeeregister.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.collegefeeregister.dao.CourseDAO;
+import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Course;
 import com.chainsys.collegefeeregister.util.Logger;
@@ -46,8 +48,8 @@ public class CourseDAOImplementation implements CourseDAO {
 				if (rs.next()) {
 					result = rs.getInt("course_id");
 				}
-			} catch (Exception e) {
-				throw new NotFoundException("Course Does not Exist");
+			} catch (SQLException e) {
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 			return result;
 		}
@@ -106,7 +108,7 @@ public class CourseDAOImplementation implements CourseDAO {
 			if (rows > 0) {
 				logger.info("Course Deleted");
 			} else {
-				throw new NotFoundException("Course Not Found");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 		}
 	}

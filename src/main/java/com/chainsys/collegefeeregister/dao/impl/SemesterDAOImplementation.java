@@ -4,11 +4,14 @@ import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.collegefeeregister.dao.SemesterDAO;
+import com.chainsys.collegefeeregister.exception.DbException;
+import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Semester;
 import com.chainsys.collegefeeregister.util.Logger;
@@ -32,6 +35,8 @@ public class SemesterDAOImplementation implements SemesterDAO {
 
 			logger.info("Semester Generated");
 
+		} catch (SQLException e) {
+			throw new DbException(InfoMessages.CONNECTION);
 		}
 	}
 
@@ -51,7 +56,7 @@ public class SemesterDAOImplementation implements SemesterDAO {
 				if (rs.next()) {
 					semId = rs.getInt("sem_id");
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				throw new NotFoundException("INVALID SEMESTER");
 			}
 			return semId;
@@ -71,11 +76,11 @@ public class SemesterDAOImplementation implements SemesterDAO {
 					s.setaccYear(rs.getInt("acc_yr_begin"));
 					list.add(s);
 				}
-			} catch (Exception e) {
-				throw new NotFoundException("No records found");
+			} catch (SQLException e) {
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
-		} catch (Exception e) {
-			throw new ConnectException("Connection Error");
+		} catch (SQLException e) {
+			throw new ConnectException(InfoMessages.CONNECTION);
 		}
 		return list;
 	}
@@ -94,12 +99,12 @@ public class SemesterDAOImplementation implements SemesterDAO {
 					s1.setsemType(rs.getString("sem_type"));
 				}
 				sem = s.getaccYear() + " " + s.getsemType();
-			} catch (Exception e) {
-				throw new NotFoundException("No records found");
+			} catch (SQLException e) {
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 			return sem;
-		} catch (Exception e) {
-			throw new ConnectException("Connection error");
+		} catch (SQLException e) {
+			throw new ConnectException(InfoMessages.CONNECTION);
 		}
 	}
 }

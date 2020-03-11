@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.collegefeeregister.dao.DegreeDAO;
+import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Degree;
 import com.chainsys.collegefeeregister.util.*;
+
+import io.swagger.annotations.Info;
 
 @Repository
 public class DegreeDAOImplementation implements DegreeDAO {
@@ -48,7 +51,7 @@ public class DegreeDAOImplementation implements DegreeDAO {
 					degName = rs2.getString("deg_name");
 				}
 			} catch (Exception e) {
-				throw new NotFoundException("Degree Doesnot Exist");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 		}
 		return degName;
@@ -67,23 +70,24 @@ public class DegreeDAOImplementation implements DegreeDAO {
 					degId = rs.getInt("deg_id");
 				}
 			} catch (Exception e) {
-				throw new NotFoundException("Degree Doesnot Exist");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			throw new NotFoundException("Connection error");
+			throw new NotFoundException(InfoMessages.CONNECTION);
 		}
 		return degId;
 	}
 
-	public ArrayList<String> getAllDegree() throws Exception {
+	public ArrayList<Degree> getAllDegree() throws Exception {
 		String sql = "select * from degree order by deg_name";
 		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-			ArrayList<String> list = new ArrayList<>();
+			ArrayList<Degree> list = new ArrayList<>();
 			try (ResultSet rs = stmt.executeQuery();) {
 				while (rs.next()) {
 					Degree d = new Degree();
+					d.setId(rs.getInt("deg_id"));
 					d.setName(rs.getString("deg_name"));
-					list.add(d.getName());
+					list.add(d);
 				}
 				return list;
 			}

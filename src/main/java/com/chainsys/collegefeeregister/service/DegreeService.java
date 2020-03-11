@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.DegreeDAO;
 import com.chainsys.collegefeeregister.dao.impl.DegreeDAOImplementation;
+import com.chainsys.collegefeeregister.model.Degree;
 
 @Service
 public class DegreeService {
@@ -24,7 +25,7 @@ public class DegreeService {
 		return obj.getDegreeId(degreeName);
 	}
 
-	public ArrayList<String> getAllDegree() throws Exception {
+	public ArrayList<Degree> getAllDegree() throws Exception {
 		return obj.getAllDegree();
 	}
 

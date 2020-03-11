@@ -8,7 +8,7 @@ import com.chainsys.collegefeeregister.model.Payment;
 
 public interface PaymentDAO {
 
-	void addPayment(Payment p) throws DbException;
+	int addPayment(Payment p) throws DbException;
 
 	List<Payment> listbysem(int semId) throws DbException, NotFoundException;
 
@@ -16,4 +16,5 @@ public interface PaymentDAO {
 
 	List<Payment> listAll() throws DbException, NotFoundException;
 
+	int sendMail(Payment p) throws Exception;
 }

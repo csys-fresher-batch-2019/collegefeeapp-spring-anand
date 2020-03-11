@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.chainsys.collegefeeregister.dao.DepartmentDAO;
 import com.chainsys.collegefeeregister.dao.impl.DeptDAOImplementation;
+import com.chainsys.collegefeeregister.model.Department;
 
 @Service
 public class DepartmentService {
@@ -24,7 +25,7 @@ public class DepartmentService {
 		return obj.getDepartmentName(deptId);
 	}
 
-	public ArrayList<String> listAllDepartments() throws Exception {
+	public ArrayList<Department> listAllDepartments() throws Exception {
 		return obj.listAllDepartments();
 	}
 

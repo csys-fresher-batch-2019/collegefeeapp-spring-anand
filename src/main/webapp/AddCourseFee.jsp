@@ -25,12 +25,6 @@
 			<%
 				ArrayList<Course> courses = (ArrayList) request.getAttribute("CourseList");
 						ArrayList<Category> categories = (ArrayList) request.getAttribute("CategoryList");
-						String infoMessage = (String) request.getAttribute("infoMessage");
-						String errorMessage = (String) request.getAttribute("errorMessage");
-						if (infoMessage != null)
-							out.println(infoMessage);
-						if (errorMessage != null)
-							out.println(errorMessage);
 			%>
 			<form action="AddCourseFee">
 				Select Course: <select name="course">

@@ -16,14 +16,6 @@
 			<h1>ADD DEPARTMENT</h1>
 			<br>
 			<br>
-			<%
-				String infoMessage = (String) request.getAttribute("infoMessage");
-						String errorMessage = (String) request.getAttribute("errorMessage");
-						if (infoMessage != null)
-							out.println(infoMessage);
-						if (errorMessage != null)
-							out.println(errorMessage);
-			%>
 			<form action="AddDepartment">
 				Enter name: <input type="text" name="department_name" required>
 				<br> <br>

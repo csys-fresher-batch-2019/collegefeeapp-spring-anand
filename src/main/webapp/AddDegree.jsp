@@ -15,14 +15,6 @@
 			<h1>ADD DEGREE</h1>
 			<br>
 			<br>
-			<%
-				String infoMessage = (String) request.getAttribute("infoMessage");
-						String errorMessage = (String) request.getAttribute("errorMessage");
-						if (infoMessage != null)
-							out.println(infoMessage);
-						if (errorMessage != null)
-							out.println(errorMessage);
-			%>
 			<form action="AddDegree">
 				Enter name: <input type="text" name="degree_name"><br>
 				<br>

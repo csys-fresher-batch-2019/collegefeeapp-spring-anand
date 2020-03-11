@@ -2,12 +2,15 @@ package com.chainsys.collegefeeregister.dao.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.collegefeeregister.dao.StudentDAO;
+import com.chainsys.collegefeeregister.exception.DbException;
+import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Student;
 import com.chainsys.collegefeeregister.util.Logger;
@@ -34,6 +37,8 @@ public class StudentDAOImplementation implements StudentDAO {
 
 			logger.info("Student Details inserted");
 
+		} catch (SQLException e) {
+			throw new DbException(InfoMessages.CONNECTION);
 		}
 	}
 
@@ -46,7 +51,7 @@ public class StudentDAOImplementation implements StudentDAO {
 			if (row > 0) {
 				logger.info("Student Name Updated");
 			} else {
-				throw new NotFoundException("No matching data");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 		}
 	}

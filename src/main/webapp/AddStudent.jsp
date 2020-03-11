@@ -22,12 +22,6 @@
 			<br>
 			<%
 				ArrayList<Course> courses = (ArrayList) request.getAttribute("CoursesList");
-						String infoMessage = (String) request.getAttribute("infoMessage");
-						String errorMessage = (String) request.getAttribute("errorMessage");
-						if (infoMessage != null)
-							out.println(infoMessage);
-						if (errorMessage != null)
-							out.println(errorMessage);
 			%>
 			<form action="AddStudent">
 				Enter Regno: <input type="text" name="txtregno" required> <br>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chainsys.collegefeeregister.model.Degree;
 import com.chainsys.collegefeeregister.service.DegreeService;
 
 @RestController
@@ -28,8 +29,8 @@ public class DegreeController {
 	}
 
 	@GetMapping("/GetAllDegree")
-	public ArrayList<String> list() {
-		ArrayList<String> list = null;
+	public ArrayList<Degree> list() {
+		ArrayList<Degree> list = null;
 		try {
 			list = obj.getAllDegree();
 		} catch (Exception e) {

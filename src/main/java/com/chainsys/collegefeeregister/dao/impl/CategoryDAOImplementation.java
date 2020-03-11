@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.collegefeeregister.dao.CategoryDAO;
+import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Category;
 import com.chainsys.collegefeeregister.util.Logger;
@@ -48,7 +49,7 @@ public class CategoryDAOImplementation implements CategoryDAO {
 					id = rs.getInt("fee_category_id");
 				}
 			} catch (Exception e) {
-				throw new NotFoundException("NOT FOUND");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 			return id;
 		}
@@ -65,10 +66,10 @@ public class CategoryDAOImplementation implements CategoryDAO {
 			try (ResultSet rs = stmt.executeQuery();) {
 				name = rs.getString("fee_category_name");
 			} catch (Exception e) {
-				throw new NotFoundException("Category doesnot exist");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
-			return name;
 		}
+		return name;
 	}
 
 	public ArrayList<Category> getAllCategory() throws Exception {
@@ -86,8 +87,10 @@ public class CategoryDAOImplementation implements CategoryDAO {
 					c.setName(rs.getString("fee_category_name"));
 					list.add(c);
 				}
-				return list;
+			} catch (Exception e) {
+				throw new Exception(InfoMessages.NOT_FOUND);
 			}
 		}
+		return list;
 	}
 }

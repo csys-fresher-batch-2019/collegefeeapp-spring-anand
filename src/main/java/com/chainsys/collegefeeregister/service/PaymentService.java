@@ -15,8 +15,15 @@ public class PaymentService {
 
 	PaymentDAO obj = new PaymentDAOImplementation();
 
-	public void addPayment(Payment p) throws DbException {
-		obj.addPayment(p);
+	public void addPayment(Payment p) throws Exception {
+		int row = obj.addPayment(p);
+		if (row > 0) {
+			try {
+				obj.sendMail(p);
+			} catch (Exception e) {
+				throw new DbException("Mail not sent");
+			}
+		}
 	}
 
 	public List<Payment> listbysem(int semId) throws DbException, NotFoundException {

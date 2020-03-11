@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.collegefeeregister.dao.impl.FeeCourseDAOImplementation;
-import com.chainsys.collegefeeregister.dao.impl.PaymentDAOImplementation;
-import com.chainsys.collegefeeregister.dao.impl.StudentDAOImplementation;
 import com.chainsys.collegefeeregister.model.Payment;
 import com.chainsys.collegefeeregister.model.Student;
 import com.chainsys.collegefeeregister.service.FeeCourseService;
@@ -33,6 +30,7 @@ public class AddPayment extends HttpServlet {
 		int feeCourseId = 0;
 		int payableAmt = 0;
 
+		RequestDispatcher rd = null;
 		String regno = request.getParameter("regno_name");
 		int categoryId = Integer.parseInt(request.getParameter("cat_name"));
 		int semId = Integer.parseInt(request.getParameter("sem_name"));
@@ -47,7 +45,7 @@ public class AddPayment extends HttpServlet {
 			feeCourseId = objfc.getCourseFeeId(courseId, categoryId);
 			payableAmt = objfc.getCourseFeeAmount(feeCourseId);
 
-			Payment p = Payment.getInstance();
+			Payment p = new Payment();
 			p.setFeeCourseId(feeCourseId);
 			p.setAmount(payableAmt);
 			p.setSemId(semId);
@@ -57,12 +55,12 @@ public class AddPayment extends HttpServlet {
 			obj.addPayment(p);
 
 			request.setAttribute("infoMessage", "SUCCESS");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "FAILED");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 		}
 	}

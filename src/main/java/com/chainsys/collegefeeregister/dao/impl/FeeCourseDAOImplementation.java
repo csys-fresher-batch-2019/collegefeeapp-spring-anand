@@ -3,11 +3,13 @@ package com.chainsys.collegefeeregister.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.collegefeeregister.dao.FeeCourseDAO;
-import com.chainsys.collegefeeregister.exception.InvalidInputException;
+import com.chainsys.collegefeeregister.exception.DbException;
+import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.util.Logger;
 import com.chainsys.collegefeeregister.util.TestConnect;
@@ -30,6 +32,8 @@ public class FeeCourseDAOImplementation implements FeeCourseDAO {
 			stmt.executeUpdate();
 
 			logger.info("Course Fee added successfully");
+		} catch (SQLException e) {
+			throw new DbException(InfoMessages.CONNECTION);
 		}
 	}
 
@@ -46,7 +50,7 @@ public class FeeCourseDAOImplementation implements FeeCourseDAO {
 			if (rows > 0) {
 				logger.info("Course Fee Updated");
 			} else {
-				throw new NotFoundException("Fee Category for the selected Course does not exist");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 		}
 	}
@@ -66,7 +70,7 @@ public class FeeCourseDAOImplementation implements FeeCourseDAO {
 					courseFeeId = rs.getInt("course_fee_id");
 				}
 			} catch (Exception e) {
-				throw new NotFoundException("Course Fee Not Found");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 			return courseFeeId;
 		}
@@ -85,7 +89,7 @@ public class FeeCourseDAOImplementation implements FeeCourseDAO {
 					feeCourseAmount = rs.getInt("amount");
 				}
 			} catch (Exception e) {
-				throw new InvalidInputException("Invalid");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 			return feeCourseAmount;
 		}

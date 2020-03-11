@@ -1,3 +1,5 @@
+<%@page import="com.chainsys.collegefeeregister.model.Degree"%>
+<%@page import="com.chainsys.collegefeeregister.model.Department"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page
 	import="com.chainsys.collegefeeregister.service.DepartmentService"%>
@@ -16,28 +18,20 @@
 	<c:choose>
 		<c:when test="${not empty LOGGED_IN_USERNAME}">
 			<jsp:include page="Menu.jsp"></jsp:include>
-			<%
-				String infoMessage = (String) request.getAttribute("infoMessage");
-						String errorMessage = (String) request.getAttribute("errorMessage");
-						if (infoMessage != null)
-							out.println(infoMessage);
-						if (errorMessage != null)
-							out.println(errorMessage);
-			%>
 			<h1>ADD COURSE</h1>
 			<br>
 			<form action="AddCourse">
 				Search by Name (Degree):
 				<%
 				DegreeService obj1 = new DegreeService();
-						ArrayList<String> names1 = obj1.getAllDegree();
+						ArrayList<Degree> names1 = obj1.getAllDegree();
 			%>
 				<input name="degree_name" list="degree_list" required>
 				<datalist id="degree_list">
 					<%
-						for (String a : names1) {
+						for (Degree a : names1) {
 					%>
-					<option value="<%=a%>"><%=a%></option>
+					<option value="<%=a.getId()%>"><%=a.getName()%></option>
 					<%
 						}
 					%>
@@ -45,16 +39,16 @@
 				<br> <br> Search by Name (Department):
 				<%
  	DepartmentService obj2 = new DepartmentService();
- 			ArrayList<String> names2 = obj2.listAllDepartments();
+ 			ArrayList<Department> names2 = obj2.listAllDepartments();
  %>
 				<input name="department_name" list="department_list" required>
 
 				<datalist id="department_list">
 
 					<%
-						for (String a : names2) {
+						for (Department a : names2) {
 					%>
-					<option value="<%=a%>"><%=a%></option>
+					<option value="<%=a.getDeptId()%>"><%=a.getDeptName()%></option>
 					<%
 						}
 					%>

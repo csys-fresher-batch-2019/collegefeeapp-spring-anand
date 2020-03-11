@@ -1,9 +1,11 @@
 package com.chainsys.collegefeeregister.dao.impl;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.chainsys.collegefeeregister.dao.PaymentDAO;
 import com.chainsys.collegefeeregister.exception.DbException;
+import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Payment;
 import com.chainsys.collegefeeregister.util.Logger;
@@ -24,43 +27,48 @@ public class PaymentDAOImplementation implements PaymentDAO {
 		return new PaymentDAOImplementation();
 	}
 
-	public void addPayment(Payment p) throws DbException {
+	public int addPayment(Payment p) throws DbException {
 
 		String sql = "insert into payment(payment_id,payment_date,std_id,course_fee_id,sem_id,paid_amount) values(payment_seq.nextval,SYSDATE,?,?,?,?)";
-		String sql2 = "select mail from student where std_id =  ?";
 
 		Logger logger = Logger.getInstance();
 
 		logger.info(sql);
-
-		try (Connection con = TestConnect.getConnection();
-				PreparedStatement stmt = con.prepareStatement(sql);
-				PreparedStatement stmt2 = con.prepareStatement(sql2);) {
+		int rows = 0;
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
 			stmt.setString(1, p.getRegno());
 			stmt.setInt(2, p.getFeeCourseId());
 			stmt.setInt(3, p.getSemId());
 			stmt.setInt(4, p.getAmount());
 
-			stmt.executeUpdate();
+			rows = stmt.executeUpdate();
 
-			String std_mail;
+			logger.info("Payment Inserted");
 
-			stmt.setString(1, p.getRegno());
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new DbException(InfoMessages.CONNECTION);
+		}
+		return rows;
+	}
+
+	public int sendMail(Payment p) throws DbException, SQLException, IOException, ClassNotFoundException {
+		int rows = 0;
+		String sql2 = "select mail from student where std_id =  ?";
+		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt2 = con.prepareStatement(sql2);) {
+
+			stmt2.setString(1, p.getRegno());
 			try (ResultSet rs = stmt2.executeQuery();) {
+				String std_mail;
 				if (rs.next()) {
 					std_mail = rs.getString("mail");
 					MailUtil.send("ak1996ak1996ak1996@gmail.com", "qwerty@123456", std_mail, "Fees Paid", p);
 				}
-			} catch (Exception e) {
-				throw new DbException("INVALID MAIL ID");
+			} catch (SQLException e) {
+				throw new DbException(InfoMessages.MAIL_ERROR);
 			}
-
-			logger.info("Payment Inserted");
-
-		} catch (Exception e) {
-			throw new DbException("Connection Error");
 		}
+		return rows;
 	}
 
 	public List<Payment> listbysem(int semId) throws DbException, NotFoundException {
@@ -81,9 +89,7 @@ public class PaymentDAOImplementation implements PaymentDAO {
 					Payment pd = Payment.getInstance();
 					pd.setId(rs.getInt("payment_id"));
 					pd.setAmount(rs.getInt("paid_amount"));
-
 					Date date = rs.getDate("payment_date");
-
 					pd.setDate(date);
 					pd.setFeeCourseId(rs.getInt("course_fee_id"));
 					pd.setRegno(rs.getString("std_id"));
@@ -93,11 +99,11 @@ public class PaymentDAOImplementation implements PaymentDAO {
 				}
 
 				return list;
-			} catch (Exception e) {
-				throw new NotFoundException("No matching data");
+			} catch (SQLException e) {
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
-		} catch (Exception e) {
-			throw new DbException("Connection Error");
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new DbException(InfoMessages.CONNECTION);
 		}
 	}
 
@@ -127,11 +133,11 @@ public class PaymentDAOImplementation implements PaymentDAO {
 				}
 				return list;
 
-			} catch (Exception e) {
-				throw new NotFoundException("No matching data");
+			} catch (SQLException e) {
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
-		} catch (Exception e) {
-			throw new DbException("Connection Error");
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new DbException(InfoMessages.CONNECTION);
 		}
 
 	}
@@ -161,11 +167,11 @@ public class PaymentDAOImplementation implements PaymentDAO {
 				}
 				return list;
 
-			} catch (Exception e) {
-				throw new NotFoundException("No matching data");
+			} catch (SQLException e) {
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
-		} catch (Exception e) {
-			throw new DbException("Connection Error");
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new DbException(InfoMessages.CONNECTION);
 		}
 
 	}

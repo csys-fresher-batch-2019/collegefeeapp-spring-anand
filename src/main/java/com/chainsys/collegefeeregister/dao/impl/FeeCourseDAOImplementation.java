@@ -12,10 +12,12 @@ import com.chainsys.collegefeeregister.exception.DbException;
 import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.util.Logger;
-import com.chainsys.collegefeeregister.util.TestConnect;
+import com.chainsys.collegefeeregister.util.ConnectionUtil;
 
 @Repository
 public class FeeCourseDAOImplementation implements FeeCourseDAO {
+
+	Logger logger = Logger.getInstance();
 
 	public static FeeCourseDAOImplementation getInstance() {
 		return new FeeCourseDAOImplementation();
@@ -23,8 +25,7 @@ public class FeeCourseDAOImplementation implements FeeCourseDAO {
 
 	public void addCourseFee(int courseId, int feeCategoryId, int amount) throws Exception {
 		String sql = "insert into course_fee(course_fee_id,course_id,fee_category_id,amount) values(course_fee_seq.nextval,?,?,?)";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
-			Logger logger = Logger.getInstance();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
 			stmt.setInt(1, courseId);
 			stmt.setInt(2, feeCategoryId);
@@ -39,9 +40,7 @@ public class FeeCourseDAOImplementation implements FeeCourseDAO {
 
 	public void updateCourseFee(int courseId, int feeCategoryId, int amount) throws Exception {
 		String sql = "update course_fee set amount=? where course_id=? and fee_category_id=?";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
-			Logger logger = Logger.getInstance();
-
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			stmt.setInt(1, amount);
 			stmt.setInt(2, courseId);
 			stmt.setInt(3, feeCategoryId);
@@ -57,8 +56,8 @@ public class FeeCourseDAOImplementation implements FeeCourseDAO {
 
 	public int getCourseFeeId(int courseId, int feeCategoryId) throws Exception {
 		String sql = "select course_fee_id from course_fee where course_id=? and fee_category_id=?";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
-			Logger logger = Logger.getInstance();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+
 			int courseFeeId = 0;
 
 			logger.info(sql);
@@ -79,7 +78,7 @@ public class FeeCourseDAOImplementation implements FeeCourseDAO {
 	public int getCourseFeeAmount(int feeCourseId) throws Exception {
 		String sql = "select amount from course_fee where course_fee_id=?";
 
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
 			int feeCourseAmount = 0;
 

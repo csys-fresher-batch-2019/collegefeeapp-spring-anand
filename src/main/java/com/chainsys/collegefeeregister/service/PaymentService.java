@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.chainsys.collegefeeregister.dao.PaymentDAO;
 import com.chainsys.collegefeeregister.dao.impl.PaymentDAOImplementation;
 import com.chainsys.collegefeeregister.exception.DbException;
+import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Payment;
 
@@ -21,7 +22,7 @@ public class PaymentService {
 			try {
 				obj.sendMail(p);
 			} catch (Exception e) {
-				throw new DbException("Mail not sent");
+				throw new DbException(InfoMessages.MAIL_ERROR);
 			}
 		}
 	}

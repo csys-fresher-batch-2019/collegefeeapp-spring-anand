@@ -1,6 +1,7 @@
 package com.chainsys.collegefeeregister.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class CategoryService {
 		return obj.getFeeCategoryName(c);
 	}
 
-	public ArrayList<Category> getAllCategory() throws Exception {
+	public List<Category> getAllCategory() throws Exception {
 		return obj.getAllCategory();
 	}
 

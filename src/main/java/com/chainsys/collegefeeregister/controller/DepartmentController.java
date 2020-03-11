@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +30,8 @@ public class DepartmentController {
 	}
 
 	@GetMapping("/GetAllDept")
-	public ArrayList<Department> list() {
-		ArrayList<Department> list = null;
+	public List<Department> list() {
+		List<Department> list = null;
 		try {
 			list = obj.listAllDepartments();
 		} catch (Exception e) {

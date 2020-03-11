@@ -1,7 +1,7 @@
 package com.chainsys.collegefeeregister.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,8 +31,8 @@ public class AddCourseLoad extends HttpServlet {
 		DegreeService obj1 = new DegreeService();
 		DepartmentService obj2 = new DepartmentService();
 		try {
-			ArrayList<Degree> names1 = obj1.getAllDegree();
-			ArrayList<Department> names2 = obj2.listAllDepartments();
+			List<Degree> names1 = obj1.getAllDegree();
+			List<Department> names2 = obj2.listAllDepartments();
 			request.setAttribute("DegreeList", names1);
 			request.setAttribute("DepartmentList", names2);
 		} catch (Exception e) {

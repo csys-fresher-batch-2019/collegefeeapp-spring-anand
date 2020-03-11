@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.collegefeeregister.model.Department;
 
@@ -12,6 +12,6 @@ public interface DepartmentDAO {
 
 	String getDepartmentName(int deptId) throws Exception;
 
-	ArrayList<Department> listAllDepartments() throws Exception;
+	List<Department> listAllDepartments() throws Exception;
 
 }

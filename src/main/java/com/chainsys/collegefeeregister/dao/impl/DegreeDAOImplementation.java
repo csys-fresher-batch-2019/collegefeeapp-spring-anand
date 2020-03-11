@@ -1,20 +1,26 @@
 package com.chainsys.collegefeeregister.dao.impl;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.collegefeeregister.dao.DegreeDAO;
+import com.chainsys.collegefeeregister.exception.DbException;
 import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Degree;
-import com.chainsys.collegefeeregister.util.*;
-
-import io.swagger.annotations.Info;
+import com.chainsys.collegefeeregister.util.Logger;
+import com.chainsys.collegefeeregister.util.ConnectionUtil;
 
 @Repository
 public class DegreeDAOImplementation implements DegreeDAO {
+
+	Logger logger = Logger.getInstance();
 
 	public static DegreeDAOImplementation getInstance() {
 		return new DegreeDAOImplementation();
@@ -23,8 +29,7 @@ public class DegreeDAOImplementation implements DegreeDAO {
 	public void addDegree(String name) throws Exception {
 		String sql = "insert into degree(deg_id,deg_name) values(degree_seq.nextval,?)";
 
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-			Logger logger = Logger.getInstance();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
 
 			logger.info(sql);
 
@@ -41,8 +46,7 @@ public class DegreeDAOImplementation implements DegreeDAO {
 		String degName = null;
 
 		String sql2 = "select deg_name from degree where deg_id=?";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql2);) {
-			Logger logger = Logger.getInstance();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql2);) {
 
 			logger.info(sql2);
 			stmt.setInt(1, degId);
@@ -50,7 +54,7 @@ public class DegreeDAOImplementation implements DegreeDAO {
 				if (rs2.next()) {
 					degName = rs2.getString("deg_name");
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 		}
@@ -59,29 +63,28 @@ public class DegreeDAOImplementation implements DegreeDAO {
 
 	public int getDegreeId(String degName) throws Exception {
 		String sql1 = "select deg_id from degree where deg_name=?";
-		Logger logger = Logger.getInstance();
 
 		logger.info(sql1);
 		int degId = 0;
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql1)) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql1)) {
 			stmt.setString(1, degName);
 			try (ResultSet rs = stmt.executeQuery();) {
 				if (rs.next()) {
 					degId = rs.getInt("deg_id");
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
-		} catch (Exception e) {
-			throw new NotFoundException(InfoMessages.CONNECTION);
+		} catch (SQLException e) {
+			throw new DbException(InfoMessages.CONNECTION);
 		}
 		return degId;
 	}
 
-	public ArrayList<Degree> getAllDegree() throws Exception {
+	public List<Degree> getAllDegree() throws Exception {
 		String sql = "select * from degree order by deg_name";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
-			ArrayList<Degree> list = new ArrayList<>();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql)) {
+			List<Degree> list = new ArrayList<>();
 			try (ResultSet rs = stmt.executeQuery();) {
 				while (rs.next()) {
 					Degree d = new Degree();

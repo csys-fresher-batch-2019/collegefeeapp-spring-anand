@@ -4,11 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.chainsys.collegefeeregister.exception.DbException;
 import com.chainsys.collegefeeregister.exception.InfoMessages;
 
-public class TestConnect {
+public class ConnectionUtil {
 
-	public static Connection getConnection() throws ClassNotFoundException, SQLException {
+	public static Connection getConnection() throws DbException {
 		Connection con = null;
 		try {
 			// TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata"));
@@ -17,7 +18,7 @@ public class TestConnect {
 			// "anand", "anand");
 			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
 		} catch (ClassNotFoundException | SQLException e) {
-			throw new ClassNotFoundException(InfoMessages.CONNECTION);
+			throw new DbException(InfoMessages.CONNECTION);
 		}
 		return con;
 	}

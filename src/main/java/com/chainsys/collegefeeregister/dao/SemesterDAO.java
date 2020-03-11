@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.collegefeeregister.model.Semester;
 
@@ -12,5 +12,5 @@ public interface SemesterDAO {
 
 	String getSemester(Semester s) throws Exception;
 
-	ArrayList<Semester> getAllSemester() throws Exception;
+	List<Semester> getAllSemester() throws Exception;
 }

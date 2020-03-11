@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.collegefeeregister.model.Degree;
 
@@ -12,5 +12,5 @@ public interface DegreeDAO {
 
 	String getDegreeName(int degreeId) throws Exception;
 
-	ArrayList<Degree> getAllDegree() throws Exception;
+	List<Degree> getAllDegree() throws Exception;
 }

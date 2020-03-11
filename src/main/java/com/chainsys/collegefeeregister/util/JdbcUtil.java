@@ -10,7 +10,7 @@ public class JdbcUtil {
 
 	public static int executeUpdate(String sql, Object... params) throws Exception {
 
-		Connection con = TestConnect.getConnection();
+		Connection con = ConnectionUtil.getConnection();
 		try (PreparedStatement pst1 = con.prepareStatement(sql);) {
 			int i = 1;
 			for (Object param : params) {

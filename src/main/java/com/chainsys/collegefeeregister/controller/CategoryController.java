@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +20,8 @@ public class CategoryController {
 	CategoryService obj;
 
 	@GetMapping("/GetAllCategory")
-	public ArrayList<Category> getAllCategory() {
-		ArrayList<Category> catlist = null;
+	public List<Category> getAllCategory() {
+		List<Category> catlist = null;
 		try {
 			catlist = obj.getAllCategory();
 		} catch (Exception e) {

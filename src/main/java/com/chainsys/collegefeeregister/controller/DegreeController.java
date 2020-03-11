@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +29,8 @@ public class DegreeController {
 	}
 
 	@GetMapping("/GetAllDegree")
-	public ArrayList<Degree> list() {
-		ArrayList<Degree> list = null;
+	public List<Degree> list() {
+		List<Degree> list = null;
 		try {
 			list = obj.getAllDegree();
 		} catch (Exception e) {

@@ -4,10 +4,6 @@ import java.sql.Date;
 
 public class Payment {
 
-	public static Payment getInstance() {
-		return new Payment();
-	}
-
 	public int getId() {
 		return id;
 	}

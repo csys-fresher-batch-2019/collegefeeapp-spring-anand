@@ -1,10 +1,11 @@
 package com.chainsys.collegefeeregister.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +14,8 @@ import com.chainsys.collegefeeregister.exception.DbException;
 import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Student;
+import com.chainsys.collegefeeregister.util.ConnectionUtil;
 import com.chainsys.collegefeeregister.util.Logger;
-import com.chainsys.collegefeeregister.util.TestConnect;
 
 @Repository
 public class StudentDAOImplementation implements StudentDAO {
@@ -26,14 +27,15 @@ public class StudentDAOImplementation implements StudentDAO {
 	}
 
 	public void addStudent(Student s) throws Exception {
-		String sql = "insert into student(std_id,std_name,course_id,mail) values('" + s.getRegno().toUpperCase() + "','"
-				+ s.getName().toUpperCase() + "'," + s.getCourseId() + ",'" + s.getMail() + "')";
+		String sql = "insert into student(std_id,std_name,course_id,mail) values(?,?,?,?)";
 
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
-			logger.info(sql);
-
-			stmt.executeUpdate(sql);
+			stmt.setString(1, s.getRegno());
+			stmt.setString(2, s.getName());
+			stmt.setInt(3, s.getCourseId());
+			stmt.setString(4, s.getMail());
+			stmt.executeUpdate();
 
 			logger.info("Student Details inserted");
 
@@ -43,11 +45,13 @@ public class StudentDAOImplementation implements StudentDAO {
 	}
 
 	public void updateStudentName(Student s) throws Exception {
-		String sql = "update student set std_name='" + s.getName() + "' where std_id='" + s.getRegno() + "'";
+		String sql = "update student set std_name=? where std_id=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+			stmt.setString(1, s.getName());
+			stmt.setString(2, s.getRegno());
 
-			int row = stmt.executeUpdate(sql);
+			int row = stmt.executeUpdate();
 			if (row > 0) {
 				logger.info("Student Name Updated");
 			} else {
@@ -57,30 +61,31 @@ public class StudentDAOImplementation implements StudentDAO {
 	}
 
 	public void deleteStudent(Student s) throws Exception {
-		String sql = "update student set stud_active=0 where std_id='" + s.getRegno() + "'";
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+		String sql = "update student set stud_active=0 where std_id=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
-			int row = stmt.executeUpdate(sql);
+			stmt.setString(1, s.getRegno());
+			int row = stmt.executeUpdate();
 			if (row > 0) {
 				logger.info("Student Deleted");
 			} else {
-				throw new NotFoundException("No matching data");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 		}
 	}
 
-	public ArrayList<Student> getAllActiveStudents() throws Exception {
+	public List<Student> getAllActiveStudents() throws Exception {
 		String sql = "select * from student where stud_active=1";
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			try (ResultSet rs = stmt.executeQuery(sql);) {
-				ArrayList<Student> list = new ArrayList<>();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+			try (ResultSet rs = stmt.executeQuery();) {
+				List<Student> list = new ArrayList<>();
 
 				while (rs.next()) {
-					Student s = Student.getInstance();
+					Student s = new Student();
 					s.setRegno(rs.getString("std_id"));
 					s.setName(rs.getString("std_name"));
 					s.setCourse_id(rs.getInt("course_id"));
-					s.setStud_active(rs.getInt("stud_active"));
+					s.setActive(rs.getInt("stud_active"));
 
 					list.add(s);
 				}
@@ -89,18 +94,19 @@ public class StudentDAOImplementation implements StudentDAO {
 		}
 	}
 
-	public ArrayList<Student> getActiveStudentsByCourse(int courseId) throws Exception {
-		String sql = "select * from student where course_id=" + courseId + " and stud_active=1";
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
-			try (ResultSet rs = stmt.executeQuery(sql);) {
-				ArrayList<Student> list = new ArrayList<>();
+	public List<Student> getActiveStudentsByCourse(int courseId) throws Exception {
+		String sql = "select * from student where course_id=? and stud_active=1";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+			stmt.setInt(1, courseId);
+			try (ResultSet rs = stmt.executeQuery();) {
+				List<Student> list = new ArrayList<>();
 
 				while (rs.next()) {
-					Student s = Student.getInstance();
+					Student s = new Student();
 					s.setRegno(rs.getString("std_id"));
 					s.setName(rs.getString("std_name"));
 					s.setCourse_id(rs.getInt("course_id"));
-					s.setStud_active(rs.getInt("stud_active"));
+					s.setActive(rs.getInt("stud_active"));
 
 					list.add(s);
 				}
@@ -111,16 +117,16 @@ public class StudentDAOImplementation implements StudentDAO {
 
 	public int getCourseIdByRegno(Student s) throws Exception {
 
-		String sql = "select course_id from student where std_id='" + s.getRegno() + "'";
-		try (Connection con = TestConnect.getConnection(); Statement stmt = con.createStatement();) {
+		String sql = "select course_id from student where std_id=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			int courseId = 0;
-
-			try (ResultSet rs = stmt.executeQuery(sql);) {
+			stmt.setString(1, s.getRegno());
+			try (ResultSet rs = stmt.executeQuery();) {
 				if (rs.next()) {
 					courseId = rs.getInt("course_id");
 				}
 			} catch (Exception e) {
-				throw new NotFoundException("No matching data");
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 			return courseId;
 		}

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,10 +14,12 @@ import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Course;
 import com.chainsys.collegefeeregister.util.Logger;
-import com.chainsys.collegefeeregister.util.TestConnect;
+import com.chainsys.collegefeeregister.util.ConnectionUtil;
 
 @Repository
 public class CourseDAOImplementation implements CourseDAO {
+
+	Logger logger = Logger.getInstance();
 
 	public static CourseDAOImplementation getInstance() {
 		return new CourseDAOImplementation();
@@ -25,8 +28,7 @@ public class CourseDAOImplementation implements CourseDAO {
 	public void addCourse(int deptId, int degId) throws Exception {
 
 		String sql = "insert into course(course_id,dept_id,deg_id) values(course_seq.nextVal,?,?)";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
-			Logger logger = Logger.getInstance();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
 			stmt.setInt(1, deptId);
 			stmt.setInt(2, degId);
@@ -40,7 +42,7 @@ public class CourseDAOImplementation implements CourseDAO {
 
 	public int getCourseId(int degId, int deptId) throws Exception {
 		String sql = "select course_id from course where deg_id=? and dept_id=?";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			int result = 0;
 			stmt.setInt(1, degId);
 			stmt.setInt(2, deptId);
@@ -61,35 +63,26 @@ public class CourseDAOImplementation implements CourseDAO {
 
 		String sql2 = "select deg_name from degree where deg_id=(select deg_id from course where course_id=?)";
 
-		try (Connection con = TestConnect.getConnection();
+		try (Connection con = ConnectionUtil.getConnection();
 				PreparedStatement stmt = con.prepareStatement(sql1);
 				PreparedStatement stmt1 = con.prepareStatement(sql2);) {
 
 			String degreeName = "";
 			String deptName = "";
 
-			// logger.info(sql1);
-
 			stmt.setInt(1, courseId);
 			stmt1.setInt(1, courseId);
 
-			try (ResultSet rs1 = stmt.executeQuery();) {
+			try (ResultSet rs1 = stmt.executeQuery(); ResultSet rs2 = stmt1.executeQuery();) {
 				if (rs1.next()) {
 					deptName = rs1.getString("dept_name");
 				}
-			}
-
-			// logger.info(sql2);
-
-			try (ResultSet rs2 = stmt1.executeQuery();) {
-
 				if (rs2.next()) {
 					degreeName = rs2.getString("deg_name");
 				}
 			}
-
-			if (degreeName.equals("") || deptName.equals("")) {
-				throw new NotFoundException("Course doesnot Exist");
+			catch (SQLException e) {
+				throw new NotFoundException(InfoMessages.NOT_FOUND);
 			}
 
 			return degreeName + " (" + deptName + ")";
@@ -100,8 +93,7 @@ public class CourseDAOImplementation implements CourseDAO {
 	public void deleteCourse(int courseId) throws Exception {
 		String sql = "update course set course_active=0 where course_id=?";
 
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
-			Logger logger = Logger.getInstance();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
 			stmt.setInt(1, courseId);
 			int rows = stmt.executeUpdate();
@@ -113,12 +105,12 @@ public class CourseDAOImplementation implements CourseDAO {
 		}
 	}
 
-	public ArrayList<Course> getAllCourse() throws Exception {
+	public List<Course> getAllCourse() throws Exception {
 
-		ArrayList<Course> list = new ArrayList<>();
+		List<Course> list = new ArrayList<>();
 		String sql = "select * from course order by course_id";
 
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 
 			try (ResultSet rs = stmt.executeQuery();) {
 

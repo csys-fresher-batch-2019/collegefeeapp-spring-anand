@@ -2,10 +2,6 @@ package com.chainsys.collegefeeregister.model;
 
 public class Student {
 
-	public static Student getInstance() {
-		return new Student();
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -22,12 +18,12 @@ public class Student {
 		this.regno = regno;
 	}
 
-	public int getStud_active() {
-		return stud_active;
+	public int getActive() {
+		return active;
 	}
 
-	public void setStud_active(int stud_active) {
-		this.stud_active = stud_active;
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 	public int getCourseId() {
@@ -40,7 +36,7 @@ public class Student {
 
 	private String name;
 	private String regno;
-	private int stud_active;
+	private int active;
 	private int courseId;
 	private String mail;
 
@@ -54,7 +50,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Stud_Class [name=" + name + ", regno=" + regno + ", stud_active=" + stud_active + ", course ID="
-				+ courseId + "]";
+		return "Stud_Class [name=" + name + ", regno=" + regno + ", stud_active=" + active + ", course ID=" + courseId
+				+ "]";
 	}
 }

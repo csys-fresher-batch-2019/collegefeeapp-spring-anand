@@ -2,10 +2,6 @@ package com.chainsys.collegefeeregister.model;
 
 public class Semester {
 
-	public static Semester getInstance() {
-		return new Semester();
-	}
-
 	private int id;
 	private int accYear;
 	private String semType;

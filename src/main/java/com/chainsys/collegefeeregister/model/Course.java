@@ -2,11 +2,6 @@ package com.chainsys.collegefeeregister.model;
 
 public class Course {
 
-	public static Course getInstance()
-	{
-		return new Course();
-	}
-	
 	public int getCourseId() {
 		return courseId;
 	}

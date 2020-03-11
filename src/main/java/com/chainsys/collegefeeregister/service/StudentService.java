@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -25,11 +25,11 @@ public class StudentService {
 		obj.deleteStudent(s);
 	}
 
-	public ArrayList<Student> getAllActiveStudents() throws Exception {
+	public List<Student> getAllActiveStudents() throws Exception {
 		return obj.getAllActiveStudents();
 	}
 
-	public ArrayList<Student> getActiveStudentsByCourse(int courseId) throws Exception {
+	public List<Student> getActiveStudentsByCourse(int courseId) throws Exception {
 		return obj.getActiveStudentsByCourse(courseId);
 	}
 

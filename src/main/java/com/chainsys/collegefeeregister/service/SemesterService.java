@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class SemesterService {
 		return obj.getSemester(s);
 	}
 
-	public ArrayList<Semester> getAllSemester() throws Exception {
+	public List<Semester> getAllSemester() throws Exception {
 		return obj.getAllSemester();
 	}
 

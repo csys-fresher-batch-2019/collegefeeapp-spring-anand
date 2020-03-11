@@ -1,7 +1,7 @@
 package com.chainsys.collegefeeregister.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,7 +26,7 @@ public class AddStudentLoad extends HttpServlet {
 
 		try {
 			CourseService obj = new CourseService();
-			ArrayList<Course> Courses = obj.getAllCourse();
+			List<Course> Courses = obj.getAllCourse();
 			request.setAttribute("CoursesList", Courses);
 
 			RequestDispatcher rd = request.getRequestDispatcher("AddStudent.jsp");

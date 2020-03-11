@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ import com.chainsys.collegefeeregister.exception.InfoMessages;
 import com.chainsys.collegefeeregister.exception.NotFoundException;
 import com.chainsys.collegefeeregister.model.Department;
 import com.chainsys.collegefeeregister.util.Logger;
-import com.chainsys.collegefeeregister.util.TestConnect;
+import com.chainsys.collegefeeregister.util.ConnectionUtil;
 
 @Repository
 public class DeptDAOImplementation implements DepartmentDAO {
@@ -26,7 +27,7 @@ public class DeptDAOImplementation implements DepartmentDAO {
 	public void addDepartment(String name) throws Exception {
 		String sql = "insert into department(dept_id,dept_name) values( department_seq.nextval ,?)";
 
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			Logger logger = Logger.getInstance();
 			logger.info(sql);
 			stmt.setString(1, name);
@@ -41,7 +42,7 @@ public class DeptDAOImplementation implements DepartmentDAO {
 	public int getDepartmentId(String departmentName) throws Exception {
 		String sql1 = "select dept_id from department where dept_name=?";
 
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql1);) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql1);) {
 			Logger logger = Logger.getInstance();
 
 			int deptId = 0;
@@ -60,7 +61,7 @@ public class DeptDAOImplementation implements DepartmentDAO {
 
 	public String getDepartmentName(int deptId) throws Exception {
 		String sql = "select dept_name from department where dept_id=?";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
 			Logger logger = Logger.getInstance();
 			String deptName = "";
 
@@ -77,11 +78,11 @@ public class DeptDAOImplementation implements DepartmentDAO {
 		}
 	}
 
-	public ArrayList<Department> listAllDepartments() throws Exception {
+	public List<Department> listAllDepartments() throws Exception {
 
 		String sql = "select * from department order by dept_name";
-		try (Connection con = TestConnect.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
-			ArrayList<Department> list = new ArrayList<>();
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement stmt = con.prepareStatement(sql);) {
+			List<Department> list = new ArrayList<>();
 
 			try (ResultSet rs = stmt.executeQuery();) {
 				while (rs.next()) {

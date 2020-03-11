@@ -2,10 +2,6 @@ package com.chainsys.collegefeeregister.model;
 
 public class Degree {
 
-	public static Degree getInstance() {
-		return new Degree();
-	}
-
 	private int id;
 	private String name;
 

@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.collegefeeregister.model.Course;
 
@@ -14,6 +14,6 @@ public interface CourseDAO {
 
 	void deleteCourse(int courseId) throws Exception;
 
-	ArrayList<Course> getAllCourse() throws Exception;
+	List<Course> getAllCourse() throws Exception;
 
 }

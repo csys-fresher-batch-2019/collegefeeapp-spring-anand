@@ -1,6 +1,6 @@
 package com.chainsys.collegefeeregister.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class DepartmentService {
 		return obj.getDepartmentName(deptId);
 	}
 
-	public ArrayList<Department> listAllDepartments() throws Exception {
+	public List<Department> listAllDepartments() throws Exception {
 		return obj.listAllDepartments();
 	}
 

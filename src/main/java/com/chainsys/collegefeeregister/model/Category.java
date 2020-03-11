@@ -2,10 +2,6 @@ package com.chainsys.collegefeeregister.model;
 
 public class Category {
 
-	public static Category getInstance() {
-		return new Category();
-	}
-
 	public int getId() {
 		return id;
 	}

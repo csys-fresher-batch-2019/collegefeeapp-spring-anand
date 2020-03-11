@@ -2,10 +2,6 @@ package com.chainsys.collegefeeregister.model;
 
 public class Department {
 
-	public static Department getInstance() {
-		return new Department();
-	}
-
 	private int deptId;
 	private String deptName;
 

@@ -1,7 +1,7 @@
 package com.chainsys.collegefeeregister.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,11 +29,11 @@ public class AddCourseFeeLoad extends HttpServlet {
 		RequestDispatcher rd = null;
 		try {
 			CourseService obj1 = new CourseService();
-			ArrayList<Course> Courses = obj1.getAllCourse();
+			List<Course> Courses = obj1.getAllCourse();
 			request.setAttribute("CourseList", Courses);
 
 			CategoryService obj2 = new CategoryService();
-			ArrayList<Category> Categories = obj2.getAllCategory();
+			List<Category> Categories = obj2.getAllCategory();
 			request.setAttribute("CategoryList", Categories);
 
 			rd = request.getRequestDispatcher("AddCourseFee.jsp");

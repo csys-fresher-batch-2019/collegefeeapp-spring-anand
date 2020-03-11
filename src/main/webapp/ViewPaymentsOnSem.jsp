@@ -2,6 +2,8 @@
 <%@page import="com.chainsys.collegefeeregister.model.Semester"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
 <html>
 <head>
 <title></title>
@@ -21,7 +23,7 @@
 				<datalist id="sem_list">
 					<%
 						SemesterService objsem = new SemesterService();
-								ArrayList<Semester> semlist = objsem.getAllSemester();
+								List<Semester> semlist = objsem.getAllSemester();
 								for (Semester s1 : semlist) {
 					%><option value="<%=s1.getId()%>">
 						<%=objsem.getSemester(s1)%>

@@ -2,6 +2,7 @@
 <%@page import="com.chainsys.collegefeeregister.service.CourseService"%>
 <%@page import="com.chainsys.collegefeeregister.service.CategoryService"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="com.chainsys.collegefeeregister.model.Category"%>
 <%@page import="com.chainsys.collegefeeregister.model.Course"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -23,8 +24,8 @@
 			<br>
 			<br>
 			<%
-				ArrayList<Course> courses = (ArrayList) request.getAttribute("CourseList");
-						ArrayList<Category> categories = (ArrayList) request.getAttribute("CategoryList");
+				List<Course> courses = (List) request.getAttribute("CourseList");
+						List<Category> categories = (List) request.getAttribute("CategoryList");
 			%>
 			<form action="AddCourseFee">
 				Select Course: <select name="course">

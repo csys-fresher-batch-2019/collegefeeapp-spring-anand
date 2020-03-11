@@ -1,6 +1,8 @@
 <%@page import="com.chainsys.collegefeeregister.service.StudentService"%>
 <%@page import="com.chainsys.collegefeeregister.model.Student"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -22,7 +24,7 @@
 				<datalist id="regno_list">
 					<%
 						StudentService obj = new StudentService();
-								ArrayList<Student> stdlist = obj.getAllActiveStudents();
+								List<Student> stdlist = obj.getAllActiveStudents();
 								for (Student s1 : stdlist) {
 					%><option value="<%=s1.getRegno()%>">
 						<%=s1.getName()%>

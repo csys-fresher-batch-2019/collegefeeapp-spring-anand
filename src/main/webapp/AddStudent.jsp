@@ -2,6 +2,8 @@
 <%@page import="com.chainsys.collegefeeregister.service.CourseService"%>
 <%@page import="com.chainsys.collegefeeregister.model.Course"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <html>
@@ -21,7 +23,7 @@
 			<br>
 			<br>
 			<%
-				ArrayList<Course> courses = (ArrayList) request.getAttribute("CoursesList");
+				List<Course> courses = (List) request.getAttribute("CoursesList");
 			%>
 			<form action="AddStudent">
 				Enter Regno: <input type="text" name="txtregno" required> <br>

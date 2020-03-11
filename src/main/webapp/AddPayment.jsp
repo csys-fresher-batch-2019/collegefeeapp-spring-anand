@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="com.chainsys.collegefeeregister.model.Category"%>
 <%@page import="com.chainsys.collegefeeregister.model.Semester"%>
 <%@page import="com.chainsys.collegefeeregister.model.Student"%>
@@ -30,7 +31,7 @@
 				Student Regno: <input name="regno_name" list="regno_list" required>
 				<datalist id="regno_list"> <%
  	StudentService objstd = new StudentService();
- 			ArrayList<Student> stdlist = objstd.getAllActiveStudents();
+ 			List<Student> stdlist = objstd.getAllActiveStudents();
  			for (Student s : stdlist) {
  %><option value="<%=s.getRegno()%>"><%=s.getName()%></option>
 				<%
@@ -40,7 +41,7 @@
 					list="sem_list" required>
 				<datalist id="sem_list"> <%
  	SemesterService objsem = new SemesterService();
- 			ArrayList<Semester> semlist = objsem.getAllSemester();
+ 			List<Semester> semlist = objsem.getAllSemester();
  			for (Semester s1 : semlist) {
  %><option value="<%=s1.getId()%>">
 					<%=objsem.getSemester(s1)%>
@@ -52,7 +53,7 @@
 					" list="cat_list" required>
 				<datalist id="cat_list"> <%
  	CategoryService objcat = new CategoryService();
- 			ArrayList<Category> catlist = objcat.getAllCategory();
+ 			List<Category> catlist = objcat.getAllCategory();
  			for (Category c1 : catlist) {
  %><option value=<%=c1.getId()%>><%=c1.getName()%>
 				</option>

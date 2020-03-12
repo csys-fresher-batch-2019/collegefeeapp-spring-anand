@@ -43,7 +43,7 @@
 							DEGREE</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="AddDepartment.jsp">ADD DEPARTMENT</a></li>
-					<li class="nav-item"><a class="nav-link" href="AddCourse.jsp">ADD
+					<li class="nav-item"><a class="nav-link" href="AddCourseLoad">ADD
 							COURSE</a></li>
 					<li class="nav-item"><a class="nav-link" href="AddStudentLoad">ADD
 							STUDENT</a></li>

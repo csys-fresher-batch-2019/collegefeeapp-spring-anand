@@ -27,7 +27,7 @@ public class ViewPaymentsOnRegno extends HttpServlet {
 		PaymentService obj = new PaymentService();
 		RequestDispatcher rd = null;
 		try {
-			List<Payment> list = obj.listbyregno(regno);
+			List<Payment> list = obj.listByRegno(regno);
 			request.setAttribute("PayList", list);
 			rd = request.getRequestDispatcher("ViewPay.jsp");
 			rd.forward(request, response);

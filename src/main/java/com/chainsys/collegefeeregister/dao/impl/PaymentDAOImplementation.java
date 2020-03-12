@@ -71,7 +71,7 @@ public class PaymentDAOImplementation implements PaymentDAO {
 		return rows;
 	}
 
-	public List<Payment> listbysem(int semId) throws DbException, NotFoundException {
+	public List<Payment> listBySem(int semId) throws DbException, NotFoundException {
 		String sql = "select payment_id,payment_date,std_id,course_fee_id,paid_amount from payment where sem_id=?";
 		logger.info(sql);
 
@@ -105,7 +105,7 @@ public class PaymentDAOImplementation implements PaymentDAO {
 		}
 	}
 
-	public List<Payment> listbyregno(String regno) throws DbException, NotFoundException {
+	public List<Payment> listByRegno(String regno) throws DbException, NotFoundException {
 		Logger logger = Logger.getInstance();
 		String sql = "select payment_id,payment_date,course_fee_id,sem_id,paid_amount from payment where std_id=?";
 		logger.info(sql);

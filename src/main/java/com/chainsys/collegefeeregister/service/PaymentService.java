@@ -27,12 +27,12 @@ public class PaymentService {
 		}
 	}
 
-	public List<Payment> listbysem(int semId) throws DbException, NotFoundException {
-		return obj.listbysem(semId);
+	public List<Payment> listBySem(int semId) throws DbException, NotFoundException {
+		return obj.listBySem(semId);
 	}
 
-	public List<Payment> listbyregno(String regno) throws DbException, NotFoundException {
-		return obj.listbyregno(regno);
+	public List<Payment> listByRegno(String regno) throws DbException, NotFoundException {
+		return obj.listByRegno(regno);
 	}
 
 	public List<Payment> listAll() throws DbException, NotFoundException {

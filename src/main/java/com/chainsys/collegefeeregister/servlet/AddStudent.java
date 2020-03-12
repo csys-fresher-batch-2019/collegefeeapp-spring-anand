@@ -27,7 +27,7 @@ public class AddStudent extends HttpServlet {
 		String name = request.getParameter("txtname");
 		int courseId = Integer.parseInt(request.getParameter("course"));
 		String email = request.getParameter("email");
-
+		RequestDispatcher rd = null;
 		try {
 
 			Student s = new Student();
@@ -39,12 +39,12 @@ public class AddStudent extends HttpServlet {
 			StudentService obj = new StudentService();
 			obj.addStudent(s);
 			request.setAttribute("infoMessage", "Student Added");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "FAILED");
-			RequestDispatcher rd = request.getRequestDispatcher("Menu.jsp");
+			rd = request.getRequestDispatcher("Menu.jsp");
 			rd.forward(request, response);
 		}
 

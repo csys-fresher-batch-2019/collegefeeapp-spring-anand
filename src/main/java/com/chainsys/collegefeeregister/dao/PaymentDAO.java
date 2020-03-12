@@ -10,9 +10,9 @@ public interface PaymentDAO {
 
 	int addPayment(Payment p) throws DbException;
 
-	List<Payment> listbysem(int semId) throws DbException, NotFoundException;
+	List<Payment> listBySem(int semId) throws DbException, NotFoundException;
 
-	List<Payment> listbyregno(String regno) throws DbException, NotFoundException;
+	List<Payment> listByRegno(String regno) throws DbException, NotFoundException;
 
 	List<Payment> listAll() throws DbException, NotFoundException;
 

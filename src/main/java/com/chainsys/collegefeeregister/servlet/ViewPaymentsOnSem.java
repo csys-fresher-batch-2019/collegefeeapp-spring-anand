@@ -30,7 +30,7 @@ public class ViewPaymentsOnSem extends HttpServlet {
 		PaymentService objp = new PaymentService();
 		RequestDispatcher rd = null;
 		try {
-			List<Payment> list = objp.listbysem(semId);
+			List<Payment> list = objp.listBySem(semId);
 			request.setAttribute("PayList", list);
 			rd = request.getRequestDispatcher("ViewPay.jsp");
 			rd.forward(request, response);

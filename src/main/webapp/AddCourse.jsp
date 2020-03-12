@@ -5,6 +5,7 @@
 	import="com.chainsys.collegefeeregister.service.DepartmentService"%>
 <%@page import="com.chainsys.collegefeeregister.service.DegreeService"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,37 +22,25 @@
 			<h1>ADD COURSE</h1>
 			<br>
 			<form action="AddCourse">
-				Search by Name (Degree):
-				<%
-				DegreeService obj1 = new DegreeService();
-						ArrayList<Degree> names1 = obj1.getAllDegree();
-			%>
-				<input name="degree_name" list="degree_list" required>
+
+				<br>
+				<br> Search by Name (Degree): <input name="degree_name"
+					list="degree_list" required>
 				<datalist id="degree_list">
-					<%
-						for (Degree a : names1) {
-					%>
-					<option value="<%=a.getId()%>"><%=a.getName()%></option>
-					<%
-						}
-					%>
+					<c:forEach items="${DegreeList}" var="s">
+						<option value="${s.id}">${s.name}</option>
+					</c:forEach>
+
 				</datalist>
-				<br> <br> Search by Name (Department):
-				<%
- 	DepartmentService obj2 = new DepartmentService();
- 			ArrayList<Department> names2 = obj2.listAllDepartments();
- %>
-				<input name="department_name" list="department_list" required>
+				<br> <br> Search by Name (Department): <input
+					name="department_name" list="department_list" required>
 
 				<datalist id="department_list">
 
-					<%
-						for (Department a : names2) {
-					%>
-					<option value="<%=a.getDeptId()%>"><%=a.getDeptName()%></option>
-					<%
-						}
-					%>
+					<c:forEach items="${DepartmentList}" var="a">
+						<option value="${a.deptId}">${a.deptName}</option>
+					</c:forEach>
+
 				</datalist>
 				<br> <br>
 				<button type="submit" class="btn btn-success">SUBMIT</button>
